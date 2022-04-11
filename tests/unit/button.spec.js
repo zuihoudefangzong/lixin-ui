@@ -19,58 +19,59 @@ describe('Button.vue', () => {
   //   expect(useElement.attributes()['xlink:href']).to.equal('#i-settings')
   // })
 
-  it('可以设置loading.', () => {
-    const wrapper = mount(Button, {
-      propsData: {
-        icon: 'settings',
-        loading: true
-      }
-    })
-    const vm = wrapper.vm
-    const useElements = vm.$el.querySelectorAll('use')
-    console.log(useElements)
-    expect(useElements.length).to.equal(1)
-    expect(useElements[0].getAttribute('xlink:href')).to.equal('#i-loading')
-  })
+  // it('可以设置loading.', () => {
+  //   const wrapper = mount(Button, {
+  //     propsData: {
+  //       icon: 'settings',
+  //       loading: true
+  //     }
+  //   })
+  //   const vm = wrapper.vm
+  //   const useElements = vm.$el.querySelectorAll('use')
+  //   console.log(useElements)
+  //   expect(useElements.length).to.equal(1)
+  //   expect(useElements[0].getAttribute('xlink:href')).to.equal('#i-loading')
+  // })
 
-  it('icon 默认的 order 是 1', () => {
-    const wrapper = mount(Button, {
-      attachToDocument: true,
-      propsData: {
-        icon: 'settings',
-      }
-    })
-    const vm = wrapper.vm
-    const icon = vm.$el.querySelector('svg')
-    console.log(icon)
-    expect(getComputedStyle(icon).order).to.eq('2')
-  })
+  // it('icon 默认的 order 是 1', () => {
+  //   const wrapper = mount(Button, {
+  //     attachToDocument: true,
+  //     propsData: {
+  //       icon: 'settings',
+  //     }
+  //   })
+  //   const vm = wrapper.vm
+  //   const icon = vm.$el.querySelector('svg')
+  //   console.log(icon)
+  //   expect(getComputedStyle(icon).order).to.eq('2')
+  // })
 
-  it('设置 iconPosition 可以改变 order', () => {
-    const wrapper = mount(Button, {
-      attachToDocument: true,
-      propsData: {
-        icon: 'settings',
-        iconPosition: 'right'
-      }
-    })
-    const vm = wrapper.vm
-    const icon = vm.$el.querySelector('svg')
-    expect(getComputedStyle(icon).order).to.eq('2')
-  })
-  it('点击 button 触发 click 事件', () => {
-    const wrapper = mount(Button, {
-      propsData: {
-        icon: 'settings',
-      }
-    })
-    const vm = wrapper.vm
+  // it('设置 iconPosition 可以改变 order', () => {
+  //   const wrapper = mount(Button, {
+  //     attachToDocument: true,
+  //     propsData: {
+  //       icon: 'settings',
+  //       iconPosition: 'right'
+  //     }
+  //   })
+  //   const vm = wrapper.vm
+  //   const icon = vm.$el.querySelector('svg')
+  //   expect(getComputedStyle(icon).order).to.eq('2')
+  // })
+
+  // it('点击 button 触发 click 事件', () => {
+  //   const wrapper = mount(Button, {
+  //     propsData: {
+  //       icon: 'settings',
+  //     }
+  //   })
+  //   const vm = wrapper.vm
 
 
-    const callback = sinon.fake();
-    vm.$on('click', callback)
-    vm.$el.click()
-    expect(callback).to.have.been.called
+  //   const callback = sinon.fake();
+  //   vm.$on('click', callback)
+  //   vm.$el.click()
+  //   expect(callback).to.have.been.called
 
-  })
+  // })
 })

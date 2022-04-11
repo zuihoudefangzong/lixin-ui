@@ -2,11 +2,16 @@
   <div id="app">
     <div class="box">
       <li-input value="张三"></li-input>
-      <li-input value="张三" disabled ></li-input>
-      <li-input value="张三" readyonly ></li-input>
+      <li-input value="李四" disabled ></li-input>
+      <li-input value="王五" readyonly></li-input>
     </div>
     <div class="box">
-      <li-input value="张三" error="姓名不能少于两个字" ></li-input>
+      <li-input value="王" v-model="message" ></li-input>
+      <p>{{message}}</p>
+      <button @click="message+=1">+1</button>
+    </div>
+    <div class="box">
+      <li-input value="王" error="姓名不能少于两个字" ></li-input>
     </div>
     
     <div style="margin:20px">
@@ -28,6 +33,7 @@ export default {
       loading1: false,
       loading2: false,
       loading3: false,
+      message: ''
     }
   }
 }

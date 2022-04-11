@@ -1,10 +1,17 @@
 <template>
   <!-- 如果有传error 就有error的css类选择器 -->
+  <!-- onchange是input输入鼠标移动后 激活其他dom 才触发 
+       同时还要把当前dom(event)传出去-->
+  <!-- vue的v-model语法糖 向外抛出自定义input事件和$event.target.value -->
   <div class="wrapper" :class="{'error': error}">
     <input :value="value"
     :disabled="disabled"
     :readonly="readonly"
-    type="text">
+    type="text"
+    @change="$emit('change', $event.target.value)"
+    @input="$emit('input', $event.target.value)"
+    @focus="$emit('focus', $event.target.value)"
+    @blur="$emit('blur', $event.target.value)">
     <!-- 直接加template 不用加div包裹 -->
     <template>
       <icon name="error" v-if="error" class="icon-error"></icon>
