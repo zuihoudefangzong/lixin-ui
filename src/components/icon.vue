@@ -9,7 +9,7 @@
 // 直接import会直接运行
 import "./svg";
 export default {
-  name: "GIcon",
+  name: "liIcon",
   // 组件之间传参
   // 假如用户没
   props: ['name'],

@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+  name: 'liButtonGroup',
   mounted() {
     this._buttonWarn()
   },

@@ -13,6 +13,7 @@
 <script>
 import Icon from '../icon.vue'
 export default {
+  name:'liButton',
   // props: ['icon', 'iconPosition'],
   props: {
     icon: {},
@@ -43,7 +44,6 @@ export default {
   100% {transform: rotate(360deg);}
 }
 .g-button {
-  // :root伪类选择器配合var()函数
   height: $button-height;
   // 左右留了1个
   padding: 0 .5em;
