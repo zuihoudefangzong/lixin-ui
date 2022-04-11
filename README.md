@@ -1,24 +1,11 @@
-# linxin
+# linxin 一个Vue UI插件
 
-## Project setup
-```
-npm install
-```
+## 介绍
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 安装
 
-### Compiles and minifies for production
-```
-npm run build
-```
+使用本框架前,前在css中开启border-box
 
-### Run your unit tests
 ```
-npm run test:unit
+* { box-sizing: border-box }
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
