@@ -1,6 +1,23 @@
 <template>
   <div id="app">
     <div class="box">
+      <li-row>
+        <li-col>1</li-col>
+        <li-col>2</li-col>
+      </li-row>
+      <li-row>
+        <li-col>1</li-col>
+        <li-col>2</li-col>
+        <li-col>3</li-col>
+        <li-col>4</li-col>
+      </li-row>
+      <li-row>
+        <!-- :属性后面是js表达式 -->
+        <li-col :span="4">4</li-col>
+        <li-col span="20">20</li-col>
+      </li-row>
+    </div>
+    <div class="box">
       <li-input value="张三"></li-input>
       <li-input value="李四" disabled ></li-input>
       <li-input value="王五" readyonly></li-input>
@@ -11,15 +28,15 @@
       <button @click="message+=1">+1</button>
     </div>
     <div class="box">
-      <li-input value="王" error="姓名不能少于两个字" ></li-input>
+      <li-input value="王" error="姓名不能少于两个字"></li-input>
     </div>
     
-    <div style="margin:20px">
-          <li-button :loading="loading1" @click="loading1 = !loading1">按钮</li-button>
+    <div style="box">
+      <li-button :loading="loading1" @click="loading1 = !loading1">按钮</li-button>
       <li-button icon="settings" icon-position="left" :loading="loading2" @click="loading2 = !loading2">按钮</li-button>
       <li-button-group>
         <li-button icon="left">上一页</li-button>
-        <li-button>更多</li-button>
+        <li-button  @click="handleClick">更多</li-button>
         <li-button icon="right" icon-position="right">下一页</li-button>
       </li-button-group>
     </div>
@@ -34,6 +51,14 @@ export default {
       loading2: false,
       loading3: false,
       message: ''
+    }
+  },
+  mounted() {
+    console.log(1)
+  },
+  methods: {
+    handleClick(){
+      console.log(1)
     }
   }
 }
