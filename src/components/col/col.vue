@@ -1,5 +1,7 @@
 <template>
-  <div class="col"  :class="[`col-${span}`]">
+  <div class="col"
+    :class="[`col-${span}`, offset && `offset-${offset}`]"
+  >
     <slot></slot>
   </div>
 </template>
@@ -8,12 +10,19 @@
 export default {
   name: 'LiCol',
   props: {
+    // span栅格占据的列数
     span: {
-      // 可以传string或者Number
+      // span可以传string或者Number
       // :span使用者老是忘记加:
       type: [Number, String],
       // 不传默认当前col占父元素width100%
       default: 24
+    },
+    // offset分栏偏移 栅格左侧的间隔格数
+    // 就是左侧给margin 
+    offset: {
+      type: [Number, String],
+      default: 0
     }
   }
 }
@@ -31,6 +40,12 @@ export default {
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {
       width: ($n / 24) * 100%;
+    }
+  }
+  $class-prefix:offset-;
+  @for $n from 1 through 24 {
+    &.#{$class-prefix}#{$n} {
+      margin-left: ($n / 24) * 100%;
     }
   }
 }

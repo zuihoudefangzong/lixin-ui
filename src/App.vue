@@ -6,15 +6,14 @@
         <li-col>2</li-col>
       </li-row>
       <li-row>
-        <li-col>1</li-col>
-        <li-col>2</li-col>
-        <li-col>3</li-col>
-        <li-col>4</li-col>
+        <li-col span="4">1</li-col>
+        <li-col span="8" offset="2">2</li-col>
+        <li-col span="6" offset="4">2</li-col>
       </li-row>
       <li-row>
         <!-- :属性后面是js表达式 -->
-        <li-col :span="4">4</li-col>
-        <li-col span="20">20</li-col>
+        <li-col :span="2">4</li-col>
+        <li-col span="20" offset="2">20</li-col>
       </li-row>
     </div>
     <div class="box">
