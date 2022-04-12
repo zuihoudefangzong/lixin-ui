@@ -1,19 +1,10 @@
 <template>
   <div id="app">
     <div class="box">
-      <li-row>
-        <li-col>1</li-col>
-        <li-col>2</li-col>
-      </li-row>
-      <li-row>
-        <li-col span="4">1</li-col>
-        <li-col span="8" offset="2">2</li-col>
-        <li-col span="6" offset="4">2</li-col>
-      </li-row>
-      <li-row>
+      <li-row gutter="20">
         <!-- :属性后面是js表达式 -->
         <li-col :span="2">4</li-col>
-        <li-col span="20" offset="2">20</li-col>
+        <li-col span="20">20</li-col>
       </li-row>
     </div>
     <div class="box">
@@ -35,7 +26,7 @@
       <li-button icon="settings" icon-position="left" :loading="loading2" @click="loading2 = !loading2">按钮</li-button>
       <li-button-group>
         <li-button icon="left">上一页</li-button>
-        <li-button  @click="handleClick">更多</li-button>
+        <li-button>更多</li-button>
         <li-button icon="right" icon-position="right">下一页</li-button>
       </li-button-group>
     </div>
@@ -52,14 +43,6 @@ export default {
       message: ''
     }
   },
-  mounted() {
-    console.log(1)
-  },
-  methods: {
-    handleClick(){
-      console.log(1)
-    }
-  }
 }
 </script>
 

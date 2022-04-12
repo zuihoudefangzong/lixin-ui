@@ -1,6 +1,7 @@
 <template>
   <div class="col"
-    :class="[`col-${span}`, offset && `offset-${offset}`]"
+    :class="[span &&  `col-${span}`, offset && `offset-${offset}`]"
+    :style="{paddingRight: gutter/2 + 'px',paddingLeft: gutter/2 + 'px'}"
   >
     <slot></slot>
   </div>
@@ -23,6 +24,11 @@ export default {
     offset: {
       type: [Number, String],
       default: 0
+    },
+  },
+  data() {
+    return {
+      gutter: 0
     }
   }
 }
