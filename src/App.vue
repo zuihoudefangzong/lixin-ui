@@ -2,27 +2,13 @@
   <div id="app">
     <div class="box">
       <li-row class="topbar">
-        <li-col class="demoBox" span="9">
-          <li-row gutter="10" justify="space-around">
-            <li-col>1</li-col>
-            <li-col>2</li-col>
-            <!-- <li-col>3</li-col>
-            <li-col>4</li-col> -->
-          </li-row>
-        </li-col>
-        <li-col class="demoBox" span="15">
-          <li-row gutter="10">
-            <li-col>1</li-col>
-            <li-col>2</li-col>
-            <li-col>3</li-col>
-            <li-col>4</li-col>
-          </li-row>
-        </li-col>
+        <li-col class="demoBox"  span="23" :sm="{span:18}" :md="{span:12}" :lg="{span:6}" :xl="{span:3}">1</li-col>
+        <li-col class="demoBox" span="1">2</li-col>
       </li-row>
       <li-row class="logo">
-        <li-col class="demoBox" span="4"></li-col>
-        <li-col class="demoBox" span="14"></li-col>
-        <li-col class="demoBox" span="6"></li-col>
+        <li-col class="demoBox" span="4">1</li-col>
+        <li-col class="demoBox" span="14">2</li-col>
+        <li-col class="demoBox" span="6">2</li-col>
       </li-row>
     </div>
     <hr>

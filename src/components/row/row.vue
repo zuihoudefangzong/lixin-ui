@@ -13,13 +13,21 @@ export default {
     gutter: {
       type: [Number, String],
     },
-    // flex布局下的水平排列方式justify
+    // flex布局下的水平排列方式justify-content
     justify: {
       type: String,
       validator(value) {
-        // includes 是否包含
+        // indexOf是否包含
         return ['start', 'center', 'end', 
           'space-around', 'space-between'].indexOf(value) >= 0
+      }
+    },
+    // flex布局下的垂直排列方式align-items
+    align: {
+      type: String,
+      validator(value) {
+        // indexOf是否包含
+        return ['top', 'middle', 'bottom'].indexOf(value) >= 0
       }
     }
   },
@@ -39,9 +47,10 @@ export default {
         marginRight: -this.gutter / 2 + 'px'}
     },
     rowClass () {
-      let { justify } = this
+      let { justify, align } = this
       return [
         justify && `justify-${justify}`,
+        align && `align-${align}`
       ]
     },
   },
@@ -52,10 +61,15 @@ export default {
 .row {
   // flex是占完width100% default不换行
   display: flex;
+  // 放不下就换行
+  flex-wrap: wrap;
   &.justify-start { justify-content: flex-start;}
   &.justify-center { justify-content: center;}
   &.justify-end { justify-content: flex-end;}
   &.justify-space-around { justify-content: space-around;}
   &.justify-space-between { justify-content: space-between;}
+  &.align-top { align-items: flex-start;}
+  &.align-middle { align-items: center;}
+  &.align-bottom { align-items: flex-end;}
 }
 </style>
