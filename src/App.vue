@@ -3,11 +3,11 @@
     <div class="box">
       <li-row class="topbar">
         <li-col class="demoBox" span="9">
-          <li-row gutter="10" justify="center">
+          <li-row gutter="10" justify="space-around">
             <li-col>1</li-col>
             <li-col>2</li-col>
-            <li-col>3</li-col>
-            <li-col>4</li-col>
+            <!-- <li-col>3</li-col>
+            <li-col>4</li-col> -->
           </li-row>
         </li-col>
         <li-col class="demoBox" span="15">

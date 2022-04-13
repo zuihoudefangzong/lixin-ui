@@ -14,13 +14,11 @@ export default {
       // :span使用者老是忘记加:
       type: [Number, String],
       // 不传默认当前col占父元素width100%
-      default: 24
     },
     // offset分栏偏移 栅格左侧的间隔格数
     // 就是左侧给margin 
     offset: {
       type: [Number, String],
-      default: 0
     },
   },
   data() {
