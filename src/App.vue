@@ -1,12 +1,31 @@
 <template>
   <div id="app">
     <div class="box">
-      <li-row gutter="20">
-        <!-- :属性后面是js表达式 -->
-        <li-col :span="2">4</li-col>
-        <li-col span="20">20</li-col>
+      <li-row class="topbar">
+        <li-col class="demoBox" span="9">
+          <li-row gutter="10" justify="center">
+            <li-col>1</li-col>
+            <li-col>2</li-col>
+            <li-col>3</li-col>
+            <li-col>4</li-col>
+          </li-row>
+        </li-col>
+        <li-col class="demoBox" span="15">
+          <li-row gutter="10">
+            <li-col>1</li-col>
+            <li-col>2</li-col>
+            <li-col>3</li-col>
+            <li-col>4</li-col>
+          </li-row>
+        </li-col>
+      </li-row>
+      <li-row class="logo">
+        <li-col class="demoBox" span="4"></li-col>
+        <li-col class="demoBox" span="14"></li-col>
+        <li-col class="demoBox" span="6"></li-col>
       </li-row>
     </div>
+    <hr>
     <div class="box">
       <li-input value="张三"></li-input>
       <li-input value="李四" disabled ></li-input>
@@ -60,5 +79,10 @@ body {font-size: var(--font-size);}
 img { max-width: 100%;}
 .box {
   margin: 20px;
+}
+.demoBox {
+  height: 100px;
+  background: grey;
+  border: 1px solid red;
 }
 </style>

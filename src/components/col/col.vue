@@ -1,8 +1,5 @@
 <template>
-  <div class="col"
-    :class="[span &&  `col-${span}`, offset && `offset-${offset}`]"
-    :style="{paddingRight: gutter/2 + 'px',paddingLeft: gutter/2 + 'px'}"
-  >
+  <div class="col" :class="colClass" :style="colStyle">
     <slot></slot>
   </div>
 </template>
@@ -28,17 +25,31 @@ export default {
   },
   data() {
     return {
-      gutter: 0
+      gutter: 0,
     }
+  },
+  // 如果需要gutter变了 colStyle也跟着变那么需要监听
+  computed: {
+      colClass(){
+        let { span, offset } = this
+        return [
+          span && `col-${span}`,
+          offset && `offset-${offset}`
+        ]
+      },
+      colStyle() {
+        let { gutter } = this
+        return {
+          paddingRight: gutter / 2 + 'px',
+          paddingLeft: gutter / 2 + 'px'
+        }
+      }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .col {
-  height: 100px;
-  background: grey;
-  border: 1px solid red;
   // scss循环生成样式
   // 前缀col-拼接循环的n
   // n从1开始 (包含)24结束
