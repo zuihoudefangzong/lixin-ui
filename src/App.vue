@@ -1,89 +1,39 @@
 <template>
   <div id="app">
-    <div class="box">
-      <li-row class="topbar">
-        <li-col class="demoBox"  
-        span="24"
-        :sm="{span:12}"
-        :md="{span:8}"
-        >
-        </li-col>
-        <li-col class="demoBox"
-        span="24"
-        :sm="{span: 12}"
-        :md="{span:8}"
-        >
-        </li-col>
-        <li-col class="demoBox"
-        span="24"
-        :sm="{span: 12}"
-        :md="{span:8}"
-        >
-        </li-col>
-        <li-col class="demoBox"
-        span="24"
-        :sm="{span: 12}"
-        :md="{span:8}"
-        >
-        </li-col>
-        <li-col class="demoBox"
-        span="24"
-        :sm="{span: 12}"
-        :md="{span:8}"
-        >
-        </li-col>
-        <li-col class="demoBox"
-        span="24"
-        :sm="{span: 12}"
-        :md="{span:8}"
-        >
-        </li-col>
-      </li-row>
-      <li-row class="logo">
-        <li-col class="demoBox" span="4">1</li-col>
-        <li-col class="demoBox" span="14">2</li-col>
-        <li-col class="demoBox" span="6">2</li-col>
-      </li-row>
-    </div>
-    <hr>
-    <div class="box">
-      <li-input value="张三"></li-input>
-      <li-input value="李四" disabled ></li-input>
-      <li-input value="王五" readyonly></li-input>
-    </div>
-    <div class="box">
-      <li-input value="王" v-model="message" ></li-input>
-      <p>{{message}}</p>
-      <button @click="message+=1">+1</button>
-    </div>
-    <div class="box">
-      <li-input value="王" error="姓名不能少于两个字"></li-input>
-    </div>
-    
-    <div style="box">
-      <li-button :loading="loading1" @click="loading1 = !loading1">按钮</li-button>
-      <li-button icon="settings" icon-position="left" :loading="loading2" @click="loading2 = !loading2">按钮</li-button>
-      <li-button-group>
-        <li-button icon="left">上一页</li-button>
-        <li-button>更多</li-button>
-        <li-button icon="right" icon-position="right">下一页</li-button>
-      </li-button-group>
-    </div>
+    <!-- 上中下 -->
+    <!-- <li-container style="height:100vh;">
+      <li-header class="demo">header</li-header>
+      <li-main class="demo">main</li-main>
+      <li-footer class="demo">footer</li-footer>
+    </li-container> -->
+
+    <!-- 上  下 -->
+    <!-- <li-container style="height:100vh;">
+      <li-aside>aside</li-aside>
+      <li-main class="demo">main</li-main>
+    </li-container> -->
+
+    <!-- 上 中(左aside右main) 下 -->
+    <!-- <li-container style="height:100vh;">
+      <li-header class="demo">header</li-header>
+      <li-container>
+        <li-aside class="demo">aside</li-aside>
+        <li-main class="demo">main</li-main>
+      </li-container>
+      <li-footer class="demo">footer</li-footer>
+    </li-container> -->
+
+    <!-- slide最左侧 -->
+    <li-container>
+      <li-aside width="60px">aside</li-aside>
+      <li-container style="height:100vh;">
+        <li-header height="300px">header</li-header>
+        <li-main class="demo">main</li-main>
+        <li-footer height="600px" class="demo">footer</li-footer>
+      </li-container>
+    </li-container>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      loading1: false,
-      loading2: false,
-      loading3: false,
-      message: ''
-    }
-  },
-}
-</script>
 
 <style>
 * {
@@ -97,12 +47,8 @@ html {--font-size: 14px;}
 /* :root伪类选择器配合var()函数 */
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
-.box {
-  margin: 20px;
-}
-.demoBox {
-  height: 100px;
-  background: grey;
-  border: 1px solid red;
+.demo {
+  border: 1px solid #666;
+  min-height: 100px;
 }
 </style>
