@@ -93,7 +93,7 @@ export default {
   // 前缀col-拼接循环的n
   // n从1开始 (包含)24结束
   // 超小屏xs默认样式不用添加xs前缀
-  // 同时也是不使用用响应式时候的PC默认样式
+  // 同时也是不使用用响应式时候的PC电脑默认样式
   $class-prefix:col-;
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {

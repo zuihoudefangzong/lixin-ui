@@ -2,8 +2,42 @@
   <div id="app">
     <div class="box">
       <li-row class="topbar">
-        <li-col class="demoBox"  span="23" :sm="{span:18}" :md="{span:12}" :lg="{span:6}" :xl="{span:3}">1</li-col>
-        <li-col class="demoBox" span="1">2</li-col>
+        <li-col class="demoBox"  
+        span="24"
+        :sm="{span:12}"
+        :md="{span:8}"
+        >
+        </li-col>
+        <li-col class="demoBox"
+        span="24"
+        :sm="{span: 12}"
+        :md="{span:8}"
+        >
+        </li-col>
+        <li-col class="demoBox"
+        span="24"
+        :sm="{span: 12}"
+        :md="{span:8}"
+        >
+        </li-col>
+        <li-col class="demoBox"
+        span="24"
+        :sm="{span: 12}"
+        :md="{span:8}"
+        >
+        </li-col>
+        <li-col class="demoBox"
+        span="24"
+        :sm="{span: 12}"
+        :md="{span:8}"
+        >
+        </li-col>
+        <li-col class="demoBox"
+        span="24"
+        :sm="{span: 12}"
+        :md="{span:8}"
+        >
+        </li-col>
       </li-row>
       <li-row class="logo">
         <li-col class="demoBox" span="4">1</li-col>
