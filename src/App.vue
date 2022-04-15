@@ -1,39 +1,18 @@
 <template>
   <div id="app">
-    <!-- 上中下 -->
-    <!-- <li-container style="height:100vh;">
-      <li-header class="demo">header</li-header>
-      <li-main class="demo">main</li-main>
-      <li-footer class="demo">footer</li-footer>
-    </li-container> -->
-
-    <!-- 上  下 -->
-    <!-- <li-container style="height:100vh;">
-      <li-aside>aside</li-aside>
-      <li-main class="demo">main</li-main>
-    </li-container> -->
-
-    <!-- 上 中(左aside右main) 下 -->
-    <!-- <li-container style="height:100vh;">
-      <li-header class="demo">header</li-header>
-      <li-container>
-        <li-aside class="demo">aside</li-aside>
-        <li-main class="demo">main</li-main>
-      </li-container>
-      <li-footer class="demo">footer</li-footer>
-    </li-container> -->
-
-    <!-- slide最左侧 -->
-    <li-container>
-      <li-aside width="60px">aside</li-aside>
-      <li-container style="height:100vh;">
-        <li-header height="300px">header</li-header>
-        <li-main class="demo">main</li-main>
-        <li-footer height="600px" class="demo">footer</li-footer>
-      </li-container>
-    </li-container>
+    <button @click="handleClick">打我</button>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    handleClick(){
+      this.$toast('我是message')
+    }
+  }
+}
+</script>
 
 <style>
 * {

@@ -1,8 +1,8 @@
 <template>
   <button @click="$emit('click')" class="g-button" :class="{ [`icon-${iconPosition}`]: true }">
     <!-- 第1个icon和第2个icon不会同时出现 -->
-    <g-icon v-if="icon && !loading" :name="icon" class="icon"></g-icon>
-    <g-icon v-if="loading" name="loading" class="loading icon"></g-icon>
+    <li-icon v-if="icon && !loading" :name="icon" class="icon"></li-icon>
+    <li-icon v-if="loading" name="loading" class="loading icon"></li-icon>
     <div class="centent">
       <!-- 插槽随用户传 slot插槽不能给class属性 -->
       <slot></slot>
@@ -33,7 +33,7 @@ export default {
       default: false
     }
   },
-  components: { 'g-icon': Icon }
+  components: { 'li-icon': Icon }
 };
 </script>
 

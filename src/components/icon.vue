@@ -1,5 +1,5 @@
 <template>
-  <svg class="g-icon">
+  <svg class="li-icon">
     <!-- 要改变svg的颜色 用css3的fill就可 -->
     <use :xlink:href="`#i-${name}`"></use>
   </svg>
@@ -18,5 +18,5 @@ export default {
 
 <style lang="scss" scoped>
   // 让icon大小 和字体宽高一样
-  .g-icon {width: 1em; height: 1em; }
+  .li-icon {width: 1em; height: 1em; }
 </style>

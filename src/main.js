@@ -11,6 +11,8 @@ import Aside from './components/container/aside.vue'
 import Header from './components/container/header.vue'
 import Footer from './components/container/footer.vue'
 import Main from './components/container/main.vue'
+// toast通知组件
+import Toast from './components/toast/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
@@ -24,6 +26,8 @@ Vue.component('li-aside', Aside)
 Vue.component('li-header', Header)
 Vue.component('li-footer', Footer)
 Vue.component('li-main', Main)
+// toast通知组件
+Vue.use(Toast)
 
 
 Vue.config.productionTip = false
