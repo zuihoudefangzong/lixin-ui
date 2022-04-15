@@ -9,7 +9,12 @@
       @mouseleave="startTimer"
     >
       <slot></slot>
-      <span v-if="closeButton" class="">{{closeButton.text}}</span>
+      <span
+        class="close"
+        v-if="closeButton"
+      >
+        {{closeButton.text}}
+      </span>
     </div>   
   </transition>
 </template>
@@ -22,7 +27,7 @@ export default {
     // 事件为3000毫秒
     duration: {
       type: Number,
-      default: 3000
+      default: 0
     },
     // showClose是否显示关闭按钮
     // showClose: {
@@ -60,7 +65,7 @@ export default {
   watch: {
     // 监听关闭状态
     closed(newVal) {
-      console.log(newVal)
+      // console.log(newVal)
       // 只有closed为true才隐藏
       // 一旦隐藏同时触发了
       // transition离开时候钩子函数afterleave
@@ -76,6 +81,7 @@ export default {
     startTimer () {
       let { duration } = this
       // default 3000毫秒
+      // 设置0为不会被自动关闭 就是不会添加定时器宏任务
       if (duration > 0) {
         this.timer = setTimeout( ()=> {
           // 先判断是否正在执行关闭
@@ -88,8 +94,9 @@ export default {
 
     // 鼠标移动到message的时候 clearTimeout
     clearTimer () {
+      console.log(this.timer)
       if(this.timer){
-        clearTimeout(this.clearTimer)
+        clearTimeout(this.timer)
       }
     },
     
@@ -137,18 +144,29 @@ $toast-min-height: 40px;
 $toast-bg: rgba(0, 0, 0, 0.75);
 .toast {
   position: fixed;
-  top: 0;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   font-size: $font-size;
   line-height: 1.8;
   height: $toast-min-height;
   background: $toast-bg;
+  border: 1px solid #ebeef5;;
   box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.50);
   color: white;
-  padding: 0 16px;
+  padding: 15px;
+  padding-left: 20px;
   display: flex;
   align-items: center;
   border-radius: 4px;
+}
+.close {
+  border: 1px solid red;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100px;
+  }
 }
 </style>

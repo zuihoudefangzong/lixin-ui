@@ -7,13 +7,13 @@ LiToast.install = function(Vue){
     const FeatureConstructor = Vue.extend(LiToast);
     // 实例化
     const toast = new FeatureConstructor({
-      propData:{
+      propsData:{
         closeButton: {
           text: '知道了',
-          callback: (that)=> {
-            console.log(that)
-            console.log('用户传了回调')
-          }
+          // callback: that=> {
+          //   console.log(that)
+          //   console.log('用户传了回调')
+          // }
         }
       }
     })
