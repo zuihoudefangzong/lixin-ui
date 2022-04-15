@@ -6,7 +6,17 @@ LiToast.install = function(Vue){
     // 构造1个vue组件
     const FeatureConstructor = Vue.extend(LiToast);
     // 实例化
-    const toast = new FeatureConstructor()
+    const toast = new FeatureConstructor({
+      propData:{
+        closeButton: {
+          text: '知道了',
+          callback: (that)=> {
+            console.log(that)
+            console.log('用户传了回调')
+          }
+        }
+      }
+    })
     // 内部插槽可以放任何html或者vue组件
     // 可以去看container组件isVertical()
     toast.$slots.default = [message]
