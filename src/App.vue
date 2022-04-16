@@ -8,7 +8,21 @@
 export default {
   methods: {
     handleClick(){
-      this.$toast('我是message')
+      this.$toast(
+        '<strong>这是 <i>HTML</i> 片段</strong><strong>这是 <i>HTML</i> 片段</strong>',
+        {
+          propsData:{
+            closeButton: {
+              text: '知道了',
+              callback: self => {
+                console.log(self)
+                console.log('用户传了回调')
+              }
+            },
+            // dangerouslyUseHTMLString: true
+          }
+        }
+        )
     }
   }
 }

@@ -2,20 +2,12 @@ import LiToast from './toast.vue'
 
 LiToast.install = function(Vue){
   // vue实例挂了一个function
-  Vue.prototype.$toast = function (message) {
+  Vue.prototype.$toast = function (message, toastOptions) {
     // 构造1个vue组件
     const FeatureConstructor = Vue.extend(LiToast);
     // 实例化
     const toast = new FeatureConstructor({
-      propsData:{
-        closeButton: {
-          text: '知道了',
-          // callback: that=> {
-          //   console.log(that)
-          //   console.log('用户传了回调')
-          // }
-        }
-      }
+      ...toastOptions
     })
     // 内部插槽可以放任何html或者vue组件
     // 可以去看container组件isVertical()

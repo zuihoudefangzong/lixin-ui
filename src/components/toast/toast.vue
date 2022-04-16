@@ -7,11 +7,16 @@
       v-show="visible"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
+      ref="toast"
     >
-      <slot></slot>
+      <!-- 由于message内容是通过slot形式从过来的 -->
+      <slot v-if="!dangerouslyUseHTMLString"></slot>
+      <div v-else v-html="$slots.default[0]"></div>
+      <div class="line" ref="line"></div>
       <span
         class="close"
         v-if="closeButton"
+        @click="close"
       >
         {{closeButton.text}}
       </span>
@@ -50,7 +55,9 @@ export default {
           callback: undefined
         }
       }
-    }
+    },
+    // 默认不支持渲染html形式
+    dangerouslyUseHTMLString: false
   },
   data(){
     return {
@@ -94,7 +101,6 @@ export default {
 
     // 鼠标移动到message的时候 clearTimeout
     clearTimer () {
-      console.log(this.timer)
       if(this.timer){
         clearTimeout(this.timer)
       }
@@ -119,10 +125,21 @@ export default {
 
     // transition离开时候钩子函数afterleave的回调
     handleAfterLeave () {
+      // this.$el.remove()
       this.$destroy(true);
+      // 从浏览器删除改dom元素
       this.$el.parentNode.removeChild(this.$el);
     },
 
+    // 主要是update div.line的height
+    updateStyles() {
+      // DOM 还没有更新
+      // 要么用setTimeout 要么用vue的api 异步更新队列
+      this.$nextTick( ()=> {
+        this.$refs.line.style.height = 
+          `${this.$refs.toast.getBoundingClientRect().height}px`
+      })
+    }
     // 监听用户的键盘事件按ESC的回调
     // keydown(e) {
     //   if (e.keydown === 27) {
@@ -133,6 +150,7 @@ export default {
     // }
   },
   mounted(){
+    this.updateStyles()
     this.startTimer()
   }
 }
@@ -149,24 +167,25 @@ $toast-bg: rgba(0, 0, 0, 0.75);
   transform: translateX(-50%);
   font-size: $font-size;
   line-height: 1.8;
-  height: $toast-min-height;
+  min-height: $toast-min-height;
   background: $toast-bg;
   border: 1px solid #ebeef5;;
   box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.50);
   color: white;
-  padding: 15px;
-  padding-left: 20px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   border-radius: 4px;
-}
-.close {
-  border: 1px solid red;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    height: 100px;
+  .line {
+    // 父元素给了min-height 这里100%失效了
+    // 所以要updateStyles
+    height: 100%;
+    border-left: 1px solid #666;
+    margin-left: 16px;
+  }
+  .close {
+    padding-left: 16px;
   }
 }
+
 </style>
