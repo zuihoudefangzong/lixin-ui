@@ -8,10 +8,14 @@
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
       ref="toast"
+      :class="toastClasses"
     >
       <!-- 由于message内容是通过slot形式从过来的 -->
-      <slot v-if="!dangerouslyUseHTMLString"></slot>
-      <div v-else v-html="$slots.default[0]"></div>
+      <slot v-if="message">
+        <div v-if="!dangerouslyUseHTMLString">{{message}}</div>
+        <div v-else v-html="message"></div>
+      </slot>
+      
       <div class="line" ref="line"></div>
       <span
         class="close"
@@ -32,7 +36,7 @@ export default {
     // 事件为3000毫秒
     duration: {
       type: Number,
-      default: 0
+      default: 3000
     },
     // showClose是否显示关闭按钮
     // showClose: {
@@ -56,8 +60,17 @@ export default {
         }
       }
     },
+    message: String,
     // 默认不支持渲染html形式
-    dangerouslyUseHTMLString: false
+    dangerouslyUseHTMLString: false,
+    // message消息提示的位置
+    position: {
+      type: String,
+      default: 'top',
+      validator (value) {
+        return ['top', 'bottom', 'middle'].indexOf(value) >= 0
+      }
+    }
   },
   data(){
     return {
@@ -152,6 +165,14 @@ export default {
   mounted(){
     this.updateStyles()
     this.startTimer()
+  },
+  computed: {
+    toastClasses () {
+      return {
+        // key假如有变量或者用变量要用[]
+        [`position-${this.position}`] : true
+      }
+    }
   }
 }
 </script>
@@ -160,10 +181,20 @@ export default {
 $font-size: 14px;
 $toast-min-height: 40px;
 $toast-bg: rgba(0, 0, 0, 0.75);
+// 动画
+// @keyframes slide-up {
+//   0% {opacity: 0; transform: translateY(100%);}
+//   100% {opacity: 1;transform: translateY(0%);}
+// }
+// @keyframes slide-down {
+//   0% {opacity: 0; transform: translateY(-100%);}
+//   100% {opacity: 1;transform: translateY(0%);}
+// }
+@keyframes fade-in {
+  0% {opacity: 0; }
+  100% {opacity: 1;}
+}
 .toast {
-  position: fixed;
-  top: 20px;
-  left: 50%;
   transform: translateX(-50%);
   font-size: $font-size;
   line-height: 1.8;
@@ -176,6 +207,26 @@ $toast-bg: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   border-radius: 4px;
+  position: fixed;
+  left: 50%;
+  $animation-duration: 300ms;
+  &.position-top {
+    top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    animation: fade-in $animation-duration;
+  }
+  &.position-bottom {
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    animation: fade-in $animation-duration;
+  }
+  &.position-middle{
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    animation: fade-in $animation-duration;
+  }
   .line {
     // 父元素给了min-height 这里100%失效了
     // 所以要updateStyles
@@ -185,6 +236,8 @@ $toast-bg: rgba(0, 0, 0, 0.75);
   }
   .close {
     padding-left: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
   }
 }
 
