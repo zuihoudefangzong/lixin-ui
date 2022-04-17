@@ -7,7 +7,10 @@
 export default {
   name:  'LiTabsBody',
   inject: ['eventBus'],
-  created(){
+  data() {
+    return {
+      
+    }
   }
 }
 </script>

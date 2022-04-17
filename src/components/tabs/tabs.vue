@@ -38,8 +38,8 @@ export default {
       eventBus: this.eventBus
     }
   },
-  created() {
-    // this.eventBus.$emit('update:selected','这是eventBus发布的事件');
+  mounted() {
+    this.eventBus.$emit('update:selected', this.selected);
   }
 }
 </script>
