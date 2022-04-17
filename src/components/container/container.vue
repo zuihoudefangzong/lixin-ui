@@ -14,8 +14,8 @@ export default {
     direction: String
   },
   computed: {
-    // 子元素中有li-header或li-footer时为主轴为x垂直方向vertical
-    // 否则为主轴为y轴水平方向horizontal
+    // 子元素中有li-header或li-footer时为主轴为y垂直方向vertical
+    // 否则为主轴为x轴水平方向horizontal
     isVertical() {
       // 解构出插槽中所有vue组件和用户传的direction
       let { direction, $slots } = this

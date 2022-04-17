@@ -1,5 +1,7 @@
 <template>
-  <div class="tabs-item"></div>
+  <div class="tabs-item">
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
