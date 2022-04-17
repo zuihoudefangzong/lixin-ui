@@ -163,6 +163,7 @@ export default {
     // }
   },
   mounted(){
+    console.log(this.$props)
     this.updateStyles()
     this.startTimer()
   },

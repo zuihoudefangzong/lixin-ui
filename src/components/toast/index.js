@@ -27,6 +27,7 @@ LiToast.install = function(Vue, options){
   Vue.component(LiToast.name, LiToast)
   // vue实例挂了一个function 可传string或者对象
   Vue.prototype.$toast = function (toastOptions) {
+    console.log(toastOptions)
     // 不考虑服务器渲染SSR
     // if (Vue.prototype.$isServer) return;
     toastOptions = toastOptions || {}
