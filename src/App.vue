@@ -1,28 +1,24 @@
 <template>
   <div id="app">
-    <button @click="handleClick">打我</button>
+    <!-- tab-click是子组件向外抛出的自定事件 -->
+    <li-tabs
+    >
+
+    </li-tabs>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    handleClick(){
-      // this.$toast('你好呀')
-      this.$toast(
-        {
-          message:`${parseInt(Math.random()*100)}<strong>这是 <i>HTML</i>片段</strong><strong>`,
-          // dangerouslyUseHTMLString: true,
-          closeButton: {
-            text: '知道了',
-            callback: self => {
-              console.log(self)
-              console.log('用户传了回调')
-            },
-          }
-        }
-      )
+  data() {
+    return {
+      activeName: 'first'
     }
+  },
+  methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      }
   }
 }
 </script>
