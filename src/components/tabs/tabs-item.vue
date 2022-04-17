@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-item" @click="xxx" :class="classes">
+  <div class="tabs-item" @click="onClick" :class="classes">
     <slot></slot>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
     }
   },
   created(){
-    this.eventBus.$on('update:selected', (name) => {
+    this.eventBus.$on('update:selected', (name,vm) => {
       // if( name === this.name) {
       //   console.log(`item${this.name}被选中了`)
       //   this.active = true
@@ -40,9 +40,13 @@ export default {
     })
   },
   methods: {
-    xxx() {
+    onClick() {
+      // 先判断一下按钮是否可点击
+      if (this.disabled) return
       // this.$emit('update:selected','这是组件本身向外抛出的事件');
-      this.eventBus.$emit('update:selected', this.name)
+      this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
+      // 当用户切换选项卡 要想父组件tabs-head抛出click事件
+      this.$emit('click', this)
     }
   },
   computed: {
@@ -56,6 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$blue: blue;
 .tabs-item {
   flex-shrink: 0;
   padding: 0 1rem;
@@ -63,7 +68,7 @@ export default {
   display: flex;
   align-items: center;
   &.active {
-    background: red;
+    color: blue;
   }
 }
 </style>

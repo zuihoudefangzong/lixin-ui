@@ -38,8 +38,32 @@ export default {
       eventBus: this.eventBus
     }
   },
+  methods: {
+    // 要选判断tabs组件默认第一层子组件
+    checkChildren(){
+      if (this.$children.length === 0) {
+        console && console.warn &&
+          console.warn('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件')
+      }
+    },
+    // 判断初始子组件选项卡的位置
+    selectTab() {
+      // 要判断里面是否有组件名为li-head
+      this.$children.forEach( (vm) => {
+        if(vm.$options.name === 'LiTabsHead') {
+          vm.$children.forEach( childVm => {
+            if( childVm.$options.name === 'LiTabsItem'
+              && childVm.name === this.selected) {
+                this.eventBus.$emit('update:selected', this.selected, childVm);
+              }
+          })
+        }
+      })
+    }
+  },
   mounted() {
-    this.eventBus.$emit('update:selected', this.selected);
+    this.checkChildren()
+    this.selectTab()
   }
 }
 </script>
