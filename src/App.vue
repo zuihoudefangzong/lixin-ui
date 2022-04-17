@@ -1,9 +1,17 @@
 <template>
   <div id="app">
     <!-- tab-click是子组件向外抛出的自定事件 -->
-    <li-tabs
-    >
-
+    <li-tabs :select.sync="selectedTab" @update:selected="handleClick">
+      <li-tabs-head>
+        <li-tabs-item name="1">美女</li-tabs-item>
+        <li-tabs-item name="financce">财经</li-tabs-item>
+        <li-tabs-item name="sports">体育</li-tabs-item>
+      </li-tabs-head>
+      <li-tabs-body>
+        <li-tabs-pane name="1">美女相关咨询</li-tabs-pane>
+        <li-tabs-pane name="financce">财经相关咨询</li-tabs-pane>
+        <li-tabs-pane name="sports">体育相关咨询</li-tabs-pane>
+      </li-tabs-body>
     </li-tabs>
   </div>
 </template>
@@ -12,12 +20,13 @@
 export default {
   data() {
     return {
-      activeName: 'first'
+      selectedTab: '1'
     }
   },
   methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
+      handleClick(data) {
+        // console.log(tab, event);
+        console.log(data)
       }
   }
 }

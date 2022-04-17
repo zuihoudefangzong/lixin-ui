@@ -14,7 +14,7 @@ import Main from './components/container/main.vue'
 // toast通知组件
 import Toast from './components/toast/'
 // tabs标签页组件
-import LTabs from './components/tabs/'
+import LiTabs from './components/tabs/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
@@ -31,7 +31,7 @@ Vue.component('li-main', Main)
 // toast通知组件
 Vue.use(Toast)
 // tabs标签页组件插件使用
-Vue.use(LTabs)
+Vue.use(LiTabs)
 
 Vue.config.productionTip = false
 

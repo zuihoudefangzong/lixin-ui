@@ -8,12 +8,10 @@
 <script>
 export default {
   name:  'LiTabsHead',
-  props: {
-    // 是否禁用
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+  // 在任何后代组件里，我们都可以使用inject选项
+  // 接收指定的我们想要添加在这个实例上的 property
+  inject: ['eventBus'],
+  created(){
   }
 }
 </script>

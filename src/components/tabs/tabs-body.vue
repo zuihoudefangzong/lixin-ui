@@ -5,7 +5,10 @@
 </template>
 <script>
 export default {
-  name:  'LiTabsBody'
+  name:  'LiTabsBody',
+  inject: ['eventBus'],
+  created(){
+  }
 }
 </script>
 

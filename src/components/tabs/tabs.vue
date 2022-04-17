@@ -4,6 +4,8 @@
   </div>
 </template>
 <script>
+// 为了用事件总线
+import Vue from 'vue'
 export default {
   name:  'LiTabs',
   props: {
@@ -23,8 +25,21 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      // 自身访问的
+      eventBus: new Vue()
+    }
+  },
+  // 实例选项provide
+  provide(){
+    return {
+      // 让任意后代组件访问的eventBus
+      eventBus: this.eventBus
+    }
+  },
   created() {
-    // this.$emit('update:selected', param);
+    // this.eventBus.$emit('update:selected','这是eventBus发布的事件');
   }
 }
 </script>
