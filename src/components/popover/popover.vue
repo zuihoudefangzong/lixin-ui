@@ -5,10 +5,12 @@
       v-if="visible"
       @click.stop
       ref="contentWrapper"
+      :class="{[`position-${position}`]:true}"
     >
       <slot name="content"></slot>
     </div>
-    <span ref="triggerWrapper">
+    <!-- span style样式解决slot里面高度比span高 -->
+    <span ref="triggerWrapper"  style="display: inline-block;">
       <slot></slot>
     </span>
   </div>
@@ -20,6 +22,15 @@ export default {
     return {
       // 显示状态
       visible: false
+    }
+  },
+  props: {
+    position: {
+      type: String,
+      default: 'top',
+      validator (value) {
+          return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+        }
     }
   },
   methods: {
@@ -102,8 +113,23 @@ export default {
 // content-wrapper是在body后面的
 .content-wrapper {
     position: absolute;
-    border: 1px solid red;
-    box-shadow: 0 2px 12px 0 rgb(0,0,0 / 10%);
-    transform: translateY(-100%);
+    color: #606266;
+    border: 1px solid #ebeef5;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+    padding: 18px 20px;
+    background: #fff;
+    // 小三角
+    &::before, &::after{
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border: 10px solid transparent;
+    }
+    &.position-top {
+      transform: translateY(-100%);
+      margin-top: -10px;
+    }
 }
 </style>

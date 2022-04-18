@@ -4,7 +4,7 @@
       <template slot="content">
         <div>popover内容1</div>
       </template>
-      <button>点我</button>
+      <li-button>点我</li-button>
     </li-popover>
     <!-- <li-popover>
       <template slot="content">
@@ -17,17 +17,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedTab: 'sports'
-    }
-  },
-  methods: {
-      handleClick(data) {
-        // console.log(tab, event);
-        console.log(data)
-      }
-  }
 }
 </script>
 
