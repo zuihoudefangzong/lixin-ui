@@ -4,10 +4,13 @@
     <div class="content-wrapper"
       v-if="visible"
       @click.stop
+      ref="contentWrapper"
     >
       <slot name="content"></slot>
     </div>
-    <slot></slot>
+    <span ref="triggerWrapper">
+      <slot></slot>
+    </span>
   </div>
 </template>
 <script>
@@ -34,7 +37,15 @@ export default {
       this.visible = true
       // 给整个文档docuent添加事件监听
     
-      setTimeout( ()=>{
+      this.$nextTick( ()=> {
+        console.log(this.$refs.contentWrapper)
+        // 当visible为true就存在dom树上了
+        document.body.appendChild(this.$refs.contentWrapper)
+        // 由于要放在this.$refs.contentWrapper附近
+        let { width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
+        console.log(width, height, top, left)
+        this.$refs.contentWrapper.style.left = left + 'px'
+        this.$refs.contentWrapper.style.top = top + 'px'
         document.addEventListener('click', this.onClickDocument)
       },0)
     },
@@ -47,6 +58,10 @@ export default {
       console.log('document隐藏的')
       this.close()
     }
+  },
+  mounted() {
+    // console.log(this.$refs.contentWrapper)
+    // console.log(this.$refs.triggerWrapper)
   }
 }
 </script>
@@ -57,12 +72,11 @@ export default {
   // 对齐方式
   vertical-align: top;
   position: relative;
-  >.content-wrapper {
+}
+// content-wrapper是在body后面的
+.content-wrapper {
     position: absolute;
-    bottom: 100%;
-    left: 0;
     border: 1px solid red;
     box-shadow: 0 2px 12px 0 rgb(0,0,0 / 10%);
-  }
 }
 </style>

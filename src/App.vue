@@ -6,12 +6,12 @@
       </template>
       <button>点我</button>
     </li-popover>
-    <li-popover>
+    <!-- <li-popover>
       <template slot="content">
         <div>popover内容2</div>
       </template>
       <button>点我</button>
-    </li-popover>
+    </li-popover> -->
   </div>
 </template>
 
