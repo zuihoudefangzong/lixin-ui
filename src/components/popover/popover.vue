@@ -44,8 +44,8 @@ export default {
         // 由于要放在this.$refs.contentWrapper附近
         let { width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
         console.log(width, height, top, left)
-        this.$refs.contentWrapper.style.left = left + 'px'
-        this.$refs.contentWrapper.style.top = top + 'px'
+        this.$refs.contentWrapper.style.left = window.scrollX + left + 'px'
+        this.$refs.contentWrapper.style.top = window.scrollY + top + 'px'
         document.addEventListener('click', this.onClickDocument)
       },0)
     },
