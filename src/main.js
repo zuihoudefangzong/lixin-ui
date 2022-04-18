@@ -15,6 +15,8 @@ import Main from './components/container/main.vue'
 import Toast from './components/toast/'
 // tabs标签页组件
 import LiTabs from './components/tabs/'
+// popover
+import Popover from './components/popover/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
@@ -32,6 +34,8 @@ Vue.component('li-main', Main)
 Vue.use(Toast)
 // tabs标签页组件插件使用
 Vue.use(LiTabs)
+// popover组件插件使用
+Vue.use(Popover)
 
 Vue.config.productionTip = false
 

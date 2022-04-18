@@ -6,10 +6,9 @@
 <script>
 export default {
   name:  'LiTabsBody',
-  inject: ['eventBus'],
   data() {
     return {
-      
+
     }
   }
 }

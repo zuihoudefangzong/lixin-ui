@@ -3,7 +3,7 @@
     <slot></slot>
     <!-- 下面的线条 -->
     <div class="line" ref="line"></div>
-    <div class="actions-wapper">
+    <div class="actions-wrapper">
       <!-- 具名插槽 右边按钮 -->
       <slot name="actions"></slot>
     </div>

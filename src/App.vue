@@ -1,21 +1,17 @@
 <template>
-  <div id="app">
-    <!-- tab-click是子组件向外抛出的自定事件 -->
-    <li-tabs :selected.sync="selectedTab" @update:selected="handleClick">
-      <li-tabs-head>
-        <li-tabs-item disabled name="1">美女</li-tabs-item>
-        <li-tabs-item name="financce">财经</li-tabs-item>
-        <li-tabs-item name="sports">体育</li-tabs-item>
-        <template slot="actions">
-          <button>设置</button>
-        </template>
-      </li-tabs-head>
-      <li-tabs-body>
-        <li-tabs-pane name="1">美女相关咨询</li-tabs-pane>
-        <li-tabs-pane name="financce">财经相关咨询</li-tabs-pane>
-        <li-tabs-pane name="sports">体育相关咨询</li-tabs-pane>
-      </li-tabs-body>
-    </li-tabs>
+  <div id="app" style="padding-top: 100px;padding-left: 100px;">
+    <li-popover>
+      <template slot="content">
+        <div>popover内容1</div>
+      </template>
+      <button>点我</button>
+    </li-popover>
+    <li-popover>
+      <template slot="content">
+        <div>popover内容2</div>
+      </template>
+      <button>点我</button>
+    </li-popover>
   </div>
 </template>
 
@@ -47,8 +43,4 @@ html {--font-size: 14px;}
 /* :root伪类选择器配合var()函数 */
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
-.demo {
-  border: 1px solid #666;
-  min-height: 100px;
-}
 </style>
