@@ -17,7 +17,7 @@ export default {
   inject: ['eventBus'],
   methods: {
     updateLinePosition (selectedVm) {
-      // 这里left距离是dom元素父元素border的距离
+      // 这里left距离 是dom元素父元素border的距离
       let { width , left } = selectedVm.$el.getBoundingClientRect()
       // 解构出left再命名为left2
       let {left: left2} = this.$refs.head.getBoundingClientRect()
@@ -43,7 +43,6 @@ $blue: blue;
   display: flex;
   height: $tabs-height;
   align-items: center;
-  border: 1px solid red;
   position: relative;
   border-bottom: 1px solid $border-color;
   >.line {
@@ -54,6 +53,10 @@ $blue: blue;
   }
   >.actions-wapper {
     margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1em;
   }
 }
 </style>

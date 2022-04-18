@@ -52,7 +52,8 @@ export default {
   computed: {
     classes() {
       return {
-        'active': this.active
+        'active': this.active,
+        'disabled': this.disabled
       }
     }
   }
@@ -61,6 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 $blue: blue;
+$disabled-color: grey;
 .tabs-item {
   flex-shrink: 0;
   padding: 0 1rem;
@@ -69,6 +71,10 @@ $blue: blue;
   align-items: center;
   &.active {
     color: blue;
+  }
+  &.disabled {
+    color: $disabled-color;
+    cursor: not-allowed;
   }
 }
 </style>

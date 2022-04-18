@@ -3,7 +3,7 @@
     <!-- tab-click是子组件向外抛出的自定事件 -->
     <li-tabs :selected.sync="selectedTab" @update:selected="handleClick">
       <li-tabs-head>
-        <li-tabs-item name="1">美女</li-tabs-item>
+        <li-tabs-item disabled name="1">美女</li-tabs-item>
         <li-tabs-item name="financce">财经</li-tabs-item>
         <li-tabs-item name="sports">体育</li-tabs-item>
         <template slot="actions">
