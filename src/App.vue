@@ -1,17 +1,30 @@
 <template>
-  <div id="app" style="padding-top: 100px;padding-left: 100px;">
+  <div id="app" style="padding-top: 100px; padding-left: 300px;">
     <li-popover>
       <template slot="content">
-        <div>popover内容1</div>
+        <div>popover上面内容</div>
       </template>
-      <li-button>点我</li-button>
+      <li-button>上面</li-button>
     </li-popover>
-    <!-- <li-popover>
+    <li-popover position="bottom">
       <template slot="content">
-        <div>popover内容2</div>
+        <div>popover下面内容</div>
       </template>
-      <button>点我</button>
-    </li-popover> -->
+      <li-button>下面</li-button>
+    </li-popover>
+    <br>
+    <li-popover position="left">
+      <template slot="content">
+        <div>popover左边1</div>
+      </template>
+      <li-button>左边</li-button>
+    </li-popover>
+    <li-popover position="right">
+      <template slot="content">
+        <div>popover右边内容2</div>
+      </template>
+      <li-button>右边</li-button>
+    </li-popover>
   </div>
 </template>
 

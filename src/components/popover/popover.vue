@@ -92,10 +92,36 @@ export default {
       const { contentWrapper, triggerWrapper } = this.$refs
       document.body.appendChild(contentWrapper)
       // 由于要放在this.$refs.contentWrapper附近
-      let { width, height, top, left} = triggerWrapper.getBoundingClientRect()
+      const { width, height, top, left} = triggerWrapper.getBoundingClientRect()
+      const {height: height2, width: width2} = contentWrapper.getBoundingClientRect()
       // console.log(width, height, top, left)
-      contentWrapper.style.left = window.scrollX + left + 'px'
-      contentWrapper.style.top = window.scrollY + top + 'px'
+      // 写if else_if else 不如写一个对象
+      let positions = {
+        // default top
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
+        // bottom的top要加上popover的默认slot的高度
+        bottom: {
+          top: top + window.scrollY + height,
+          left: left + window.scrollX,
+        },
+        left: {
+          // 左边 top就要减去triggerWrapper和contentWrapper高度差的一半
+          // 左边 left 就要加上triggerWrapper的width
+          top: top + window.scrollY + (height - height2)/2,
+          left: left + window.scrollX - width2,
+        },
+        right: {
+          // 右边 top就要减去triggerWrapper和contentWrapper高度差的一半
+          // 左边 left就要加上contentWrapper的width
+          top: top + window.scrollY + (height - height2) / 2,
+          left: left + window.scrollX + width,
+        }
+      }
+      contentWrapper.style.left = positions[this.position].left + 'px'
+      contentWrapper.style.top = positions[this.position].top +  'px'
     }
   },
   mounted() {
@@ -136,8 +162,9 @@ $border-radius: 4px;
       width: 0;
       height: 0;
       border: 10px solid transparent;
+      // border: 10px solid black;
     }
-    // 默认上方top
+    // 默认的top
     &.position-top {
       transform: translateY(-100%);
       margin-top: -10px;
@@ -151,11 +178,79 @@ $border-radius: 4px;
       &::after {
         border-top-color: white;
         border-bottom: none;
-        top: calc(100% - 2px);
+        top: calc(100% - 1px);
       }
       // 在往左边距离10px就够了
       &::before,&::after {
         left: 10px;
+      }
+    }
+    // bottom
+    &.position-bottom {
+      margin-top: 10px;
+      // 覆盖默认的::before和
+      &::before {
+        border-bottom-color: #ebeef5;
+        border-top: none;
+        bottom: 100%;
+      }
+      // 覆盖默认的::after
+      &::after {
+        border-bottom-color: white;
+        border-top: none;
+        bottom: calc(100% - 1px);
+      }
+      // 在往左边距离10px就够了
+      &::before,&::after {
+        left: 10px;
+      }
+    }
+    // left
+    &.position-left {
+      margin-left: -10px;
+      // 覆盖默认的::before
+      &::before {
+        border-left-color: #ebeef5;
+        // border-bottom: none;
+        left: 100%;
+      }
+      // 覆盖默认的::after
+      &::after {
+        border-left-color: white;
+        // border-bottom: none;
+        // top: calc(100% - 2px);
+        left: calc(100% - 2px)
+      }
+      // 在往左边距离10px就够了
+      &::before,&::after {
+        // 都距离已定位的父元素top50%
+        top: 50%;
+        // 然后通过translateY 一到父元素垂直方向的中心
+        transform: translateY(-50%);
+      }
+    }
+    // right
+    &.position-right {
+      margin-left: 10px;
+      // 覆盖默认的::before
+      &::before {
+        border-right-color: #ebeef5;
+        // border-bottom: none;
+        right: 100%;
+      }
+      // 覆盖默认的::after
+      &::after {
+        border-right-color: white;
+        // border-bottom: none;
+        // top: calc(100% - 2px);
+        right: calc(100% - 2px)
+      }
+      // 在往左边距离10px就够了
+      &::before,&::after {
+        // 都距离已定位的父元素top50%
+        top: 50%;
+        // 然后通过translateY 一到父元素垂直方向的中心
+        transform: translateY(-50%);
       }
     }
 }
