@@ -1,30 +1,10 @@
 <template>
-  <div id="app" style="padding-top: 100px; padding-left: 300px;">
-    <li-popover  trigger="hover">
-      <template slot="content">
-        <div>popover上面内容</div>
-      </template>
-      <li-button>上面</li-button>
-    </li-popover>
-    <li-popover position="bottom">
-      <template slot="content">
-        <div>popover下面内容</div>
-      </template>
-      <li-button>下面</li-button>
-    </li-popover>
-    <br>
-    <li-popover position="left">
-      <template slot="content">
-        <div>popover左边1</div>
-      </template>
-      <li-button>左边</li-button>
-    </li-popover>
-    <li-popover position="right" trigger="hover">
-      <template slot="content">
-        <div>popover右边内容2</div>
-      </template>
-      <li-button>右边</li-button>
-    </li-popover>
+  <div id="app" style="padding: 100px;">
+    <li-collapse>
+      <li-collapse-item title="标题一">内容一</li-collapse-item>
+      <li-collapse-item title="标题二">内容二</li-collapse-item>
+      <li-collapse-item title="标题三">内容三</li-collapse-item>
+    </li-collapse>
   </div>
 </template>
 

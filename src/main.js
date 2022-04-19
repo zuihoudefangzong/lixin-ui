@@ -17,6 +17,8 @@ import Toast from './components/toast/'
 import LiTabs from './components/tabs/'
 // popover
 import Popover from './components/popover/'
+// collapse折叠面板
+import Collapse from './components/collapse/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
@@ -36,6 +38,8 @@ Vue.use(Toast)
 Vue.use(LiTabs)
 // popover组件插件使用
 Vue.use(Popover)
+// collapse折叠面板组件插件使用
+Vue.use(Collapse)
 
 Vue.config.productionTip = false
 
