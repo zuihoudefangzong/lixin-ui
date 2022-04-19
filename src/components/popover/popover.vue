@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" ref="popover" @click="onClick" >
+  <div class="popover" ref="popover">
     <!-- @click.stop显示后 点击不隐藏 -->
     <div class="content-wrapper"
       v-if="visible"
@@ -25,12 +25,21 @@ export default {
     }
   },
   props: {
+    // content-wrapper的位置
     position: {
       type: String,
       default: 'top',
       validator (value) {
           return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
         }
+    },
+    // 触发方式
+    trigger: {
+      type: String,
+      default: 'click',
+      validator(value) {
+        return ['click','hover'].indexOf(value) >= 0
+      }
     }
   },
   methods: {
@@ -68,12 +77,13 @@ export default {
     close() {
       this.visible = false
       console.log('document结束监听')
+      console.log(this.$refs.popover)
       document.removeEventListener('click', this.onClickDocument)
     },
 
     // document事件监听排除特定dom
     onClickDocument(e) {
-      console.log(e.target)
+      // console.log(e.target)
       const { popover, contentWrapper} = this.$refs
       // div.popover的onclick事件的冒泡和document监听onclick导致刚点就又隐藏
       // 假如监听到触发的dom是this.$refs.popver或是this.$refs.popver后代节点Node的dom
@@ -122,11 +132,49 @@ export default {
       }
       contentWrapper.style.left = positions[this.position].left + 'px'
       contentWrapper.style.top = positions[this.position].top +  'px'
-    }
+    },
+
+    // div.ref=popover添加事件监听类型
+    addPopoverListeners() {
+      const { popover } = this.$refs
+      if (this.trigger === 'click'){
+        popover.addEventListener('click', this.onClick)
+      }
+      else if (this.trigger === 'hover') {
+        popover.addEventListener('mouseenter', this.open)
+        popover.addEventListener('mouseleave', this.close)
+      }
+    },
+    // 因为是手动添加 没用@事件名 vue不知道
+    removePopoverListeners(){
+      const { popover } = this.$refs
+      if (this.trigger === 'click'){
+        popover.removeEventListener('click', this.onClick)
+      }
+      else if (this.trigger === 'hover') {
+        popover.removeEventListener('mouseenter', this.open)
+        popover.removeEventListener('mouseleave', this.close)
+      }
+    },
+    // 既然要销毁组件就把body后面的dom div.contentWrapper也移除吧
+    // 主要针对像点击 弹出后 组件又准备销毁了
+    putBackContent() {
+      const {contentWrapper, popover} = this.$refs
+      if(!contentWrapper){return}
+      popover.appendChild(contentWrapper)
+      // let div = document.querySelector('.content-wrapper')
+      // if(div){div.parentNode.removeChild(div)}
+      // document.removeEventListener('click', this.onClickDocument)
+    } 
   },
   mounted() {
-    // console.log(this.$refs.contentWrapper)
-    // console.log(this.$refs.triggerWrapper)
+    this.addPopoverListeners()
+  },
+  // 组件准备销毁了
+  beforeDestroy() {
+    this.putBackContent()
+    // 因为是手动添加 没用@事件名 vue不知道
+    this.removePopoverListeners()
   }
 }
 </script>

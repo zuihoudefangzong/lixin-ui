@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding-top: 100px; padding-left: 300px;">
-    <li-popover>
+    <li-popover  trigger="hover">
       <template slot="content">
         <div>popover上面内容</div>
       </template>
@@ -19,7 +19,7 @@
       </template>
       <li-button>左边</li-button>
     </li-popover>
-    <li-popover position="right">
+    <li-popover position="right" trigger="hover">
       <template slot="content">
         <div>popover右边内容2</div>
       </template>
