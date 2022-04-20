@@ -1,26 +1,52 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <li-collapse :selected="selectTab" @update:selected="test">
-      <li-collapse-item title="标题一" name="1">内容一</li-collapse-item>
-      <li-collapse-item title="标题二" name="2">内容二</li-collapse-item>
-      <li-collapse-item title="标题三" name="3">内容三</li-collapse-item>
-    </li-collapse>
-    {{selectTab}}
+    <li-cascader :options="options"></li-cascader>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      selectTab: ['1']
+      options: [
+        {
+          name: '浙江',
+          children: [
+            {
+              name: '杭州',
+              children: [
+                {name: '上城'},
+                {name: '下城'},
+                {name: '江干'},
+              ]
+            },
+            {
+              name: '嘉兴',
+              children: [
+                {name: '南湖'},
+                {name: '秀洲'},
+                {name: '嘉善'},
+              ]
+            },
+          ]
+        },
+        {
+          name: '福建',
+          children: [
+            {
+              name: '福州',
+              children: [
+                {name: '鼓楼'},
+                {name: '台江'},
+                {name: '仓山'},
+              ]
+            },
+          ]
+        },
+      ]
     }
   },
-  methods: {
-    test(e){
-      this.selectTab = e
-    }
-  }
 }
 </script>
 

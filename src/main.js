@@ -19,11 +19,14 @@ import LiTabs from './components/tabs/'
 import Popover from './components/popover/'
 // collapse折叠面板
 import Collapse from './components/collapse/'
+// cascader级联选择器
+import Cascader from './components/cascader/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
 Vue.component('li-button-group', ButtonGroup)
 Vue.component('li-input', input)
+// gril栅格
 Vue.component('li-row', Row)
 Vue.component('li-col', Col)
 // layout
@@ -40,6 +43,9 @@ Vue.use(LiTabs)
 Vue.use(Popover)
 // collapse折叠面板组件插件使用
 Vue.use(Collapse)
+// cascader级联选择器组件插件使用
+Vue.use(Cascader)
+
 
 Vue.config.productionTip = false
 
