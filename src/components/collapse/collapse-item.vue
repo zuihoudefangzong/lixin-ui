@@ -20,7 +20,7 @@ export default {
     // name当前面板唯一标识符
     name: {
       // string/number
-      type: String || Number,
+      type: String,
       require: true
     }
   },
@@ -33,23 +33,30 @@ export default {
   inject: ['eventBus'],
   methods: {
     // 监听用户点击面板
+    // 由于数据流的复杂性 先告诉父组件
     toggle () {
       if (this.open) {
-        this.open = false
+        // 直接触发eventbus事件就行 在mouted中$on监听关闭
+        this.eventBus && this.eventBus.$emit('update:removeSelected', this.name)
       }
       else {
-        console.log('关闭')
-        // 直接触发eventbus事件就行 在mouted中$on监听关闭
-        this.eventBus && this.eventBus.$emit('update:selected', this.name)
+        // 直接触发eventbus事件就行 在mouted中$on监听打开
+        this.eventBus && this.eventBus.$emit('update:addSelected', this.name)
       }
     }
   },
   mounted() {
-    this.eventBus && this.eventBus.$on('update:selected', name => {
-      if( name === this.name) {
+    // 由于数据流的复杂性 
+    // 子组件collapse只$on监听update:selected事件
+    // 让父组件告诉我要不要打开
+    this.eventBus && this.eventBus.$on('update:selected', names => {
+      // names是1个数组 查看自身是否包含数组里
+      if( names.indexOf(this.name) >= 0 ) {
         this.open = true
       }
+      // 不包含数组里面
       else {
+        // console.log(this.name,'关闭')
         this.open = false
       }
     })

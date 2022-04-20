@@ -13,7 +13,7 @@
 export default {
   data() {
     return {
-      selectTab: '1'
+      selectTab: ['1']
     }
   },
   methods: {
