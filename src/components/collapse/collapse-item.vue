@@ -1,6 +1,6 @@
 <template>
   <div class="collapse-item">
-    <div class="title" @click="open = !open">{{title}}</div>
+    <div class="title" @click="toggle">{{title}}</div>
     <div class="content" v-show="open">
       <slot></slot>
     </div>
@@ -11,9 +11,16 @@
 export default {
   name: 'LiCollapseItem',
   props: {
+    // 面板标题
     title: {
       type: String,
       // 必传
+      require: true
+    },
+    // name当前面板唯一标识符
+    name: {
+      // string/number
+      type: String || Number,
       require: true
     }
   },
@@ -22,6 +29,30 @@ export default {
       // default不打开
       open: false
     }
+  },
+  inject: ['eventBus'],
+  methods: {
+    // 监听用户点击面板
+    toggle () {
+      if (this.open) {
+        this.open = false
+      }
+      else {
+        console.log('关闭')
+        // 直接触发eventbus事件就行 在mouted中$on监听关闭
+        this.eventBus && this.eventBus.$emit('update:selected', this.name)
+      }
+    }
+  },
+  mounted() {
+    this.eventBus && this.eventBus.$on('update:selected', name => {
+      if( name === this.name) {
+        this.open = true
+      }
+      else {
+        this.open = false
+      }
+    })
   }
 }
 </script>

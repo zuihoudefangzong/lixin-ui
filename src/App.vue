@@ -1,15 +1,26 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <li-collapse>
-      <li-collapse-item title="标题一">内容一</li-collapse-item>
-      <li-collapse-item title="标题二">内容二</li-collapse-item>
-      <li-collapse-item title="标题三">内容三</li-collapse-item>
+    <li-collapse :selected="selectTab" @update:selected="test">
+      <li-collapse-item title="标题一" name="1">内容一</li-collapse-item>
+      <li-collapse-item title="标题二" name="2">内容二</li-collapse-item>
+      <li-collapse-item title="标题三" name="3">内容三</li-collapse-item>
     </li-collapse>
+    {{selectTab}}
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      selectTab: '1'
+    }
+  },
+  methods: {
+    test(e){
+      this.selectTab = e
+    }
+  }
 }
 </script>
 

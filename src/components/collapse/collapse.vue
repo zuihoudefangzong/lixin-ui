@@ -5,8 +5,29 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
-  name: 'LiCollapse'
+  name: 'LiCollapse',
+  props: {
+    // 当前激活的面板
+    selected: String
+  },
+  data() {
+    return {
+      eventBus: new Vue()
+    }
+  },
+  provide() {
+    return {
+      eventBus: this.eventBus
+    }
+  },
+  mounted() {
+    this.eventBus.$emit('update:selected', this.selected)
+    this.eventBus.$on('update:selected', name => {
+      this.$emit('update:selected', name)
+    })
+  }
 }
 </script>
 
