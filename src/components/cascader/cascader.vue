@@ -4,7 +4,11 @@
     <div class="trigger" @click="popoverVisible = ! popoverVisible">
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
-      <li-cascader-items :items="options" :height="popoverHeight"></li-cascader-items>
+      <li-cascader-items
+        :items="options"
+        :height="popoverHeight"
+        :selected="selected"
+      ></li-cascader-items>
     </div>
   </div>
 </template>
@@ -19,9 +23,18 @@ export default {
       type: Array,
       require: true
     },
-    // 使用指定弹出层的height 例子200px
+    // 使用者指定弹出层的height 例子200px
     // 为了传个li-cascader-items
-    popoverHeight: String
+    popoverHeight: String,
+    // 用户选中的内容可不传 
+    // cascader组件自身维护
+    selected: {
+      type: Array,
+      // 当默认值是引用数据类型
+      // 要写成函数 同时带来1个面试题
+      // data为什么必须是函数(sticky组件有讲)
+      default: ()=> { return []}
+    }
   },
   data(){
     return {
