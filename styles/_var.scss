@@ -1,6 +1,7 @@
 $border-color-hover: #666;
 $border-color: #999;
-$border-color-light: lighten($border-color, 30%);
+// $border-color-light: lighten($border-color, 30%);
+$border-color-light:#e4e7ed;
 $border-radius: 4px;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $button-active-bg: #eee;
@@ -15,7 +16,7 @@ $red: #F1453D;
 $grey: #eee;
 $blue: #4a90e2;
 .box-shadow {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
 }
 @keyframes spin {
   0% { transform: rotate(0deg); }

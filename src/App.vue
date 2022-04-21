@@ -1,6 +1,8 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <li-cascader :options="options"></li-cascader>
+    <p>11111111111</p>
+    <li-cascader :options="options" popover-height="200px"></li-cascader>
+    <p>22222222222</p>
   </div>
 </template>
 
