@@ -4,12 +4,32 @@
     <div class="trigger" @click="popoverVisible = ! popoverVisible">
     </div>
     <div class="popover" v-if="popoverVisible">
-      <div v-for="item in options" :key="item.name">
-        <div>{{item.name}}</div>
+      <div class="level1">
+        <div class="label"
+          v-for="optionItem in options"
+          :key="optionItem.name"
+          @click="level1Selected = optionItem"
+        >
+          {{optionItem.name}}
+       </div>
       </div>
-      <!-- <div v-for="item in options" :key="item.name">
-        <li-cascader-items :optionItem="item"></li-cascader-items>
-      </div> -->
+      <div class="level2">
+        <div class="label"
+          v-for="item in level2Items"
+          :key="item.name"
+          @click="level2Selected = item"
+        >
+          {{item.name}}
+       </div>
+      </div>
+      <div class="level3">
+        <div class="label"
+          v-for="subItem in level3Items"
+          :key="subItem.name"
+        >
+          {{subItem.name}}
+       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,10 +48,22 @@ export default {
   data(){
     return {
       // popover是否可见
-      popoverVisible: false
+      popoverVisible: false,
+      // 用户选择的省
+      level1Selected: null,
+      level2Selected: null
     }
   },
   components: { LiCascaderItems },
+  computed: {
+    level2Items() {
+      return this.level1Selected ? this.level1Selected.children : []
+    },
+    level3Items() {
+      console.log('计算了level3')
+      return this.level2Selected ? this.level2Selected.children : []
+    }
+  }
 }
 </script>
 
@@ -45,8 +77,11 @@ export default {
   }
   .popover {
     border: 1px solid red;
-    height: 200px;
-    width: 80px;
+    display: flex;
+    .label {
+      // 文字不换行
+      white-space: nowrap;
+    }
   }
 }
 </style>
