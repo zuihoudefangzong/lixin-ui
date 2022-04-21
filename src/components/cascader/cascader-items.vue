@@ -1,12 +1,17 @@
 <template>
   <div class="cascder-item">
-    {{optionItem.name}}
-    <li-cascader-items
-      v-if="optionItem"
-      v-for="item in optionItem.children"
-      :key="item.name"
-      :optionItem="item"
-    ></li-cascader-items>
+    <div class="left">
+      <div class="label"
+        v-for="item in items"
+        :key="item.name"
+        @click="leftSelected = item"
+      >
+      {{item.name}}
+      </div>
+    </div>
+    <div class="right" v-if="rightItems">
+      <li-cascader-items :items="rightItems"></li-cascader-items>
+    </div>
   </div>
 </template>
 
@@ -16,14 +21,36 @@ export default {
   // 那么这个标签就是自己
   name: 'LiCascaderItems',
   props: {
-    optionItem: Object
+    items: Array
+  },
+  data() {
+    return {
+      leftSelected: null
+    }
+  },
+  computed: {
+    // 判断右边是否要渲染
+    rightItems() {
+      if( this.leftSelected && this.leftSelected.children) {
+        return this.leftSelected.children
+      }
+      else {
+        return null
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .cascder-item {
-  border: 1px solid red;
-  margin:  10px;
+  display: flex;
+  align-items: flex-start;
+  .left {
+    border: 1px solid red;
+  }
+  .right {
+    margin-top: -1px;
+  }
 }
 </style>
