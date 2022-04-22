@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <p>{{selected}}</p>
+    <!-- <p>{{selected[0]}}</p> -->
     <!-- <li-cascader
       :options="options"
       popover-height="200px"
@@ -12,6 +12,7 @@
       :options="options"
       popover-height="200px"
       :selected.sync="selected"
+      :loadData="loadData"
     >
     </li-cascader>
     <p>22222222222</p>
@@ -19,13 +20,7 @@
 </template>
 
 <script>
-
-export default {
-  data() {
-    return {
-      // 被选中的内容
-      selected: [],
-      options: [
+let optionsdemo=[
         {
           name: '浙江',
           children: [
@@ -59,14 +54,73 @@ export default {
           ]
         }
       ]
+import db from './components/cascader/db'
+
+// 回调版本
+// function ajax(cityCode = 0, success,fail) {
+//   let timerId = setTimeout(()=> {
+//     let result =  db.filter( item => item.cityCode === cityCode.toString())
+//     console.log(result)
+//     success(result)
+//   },3000)
+//   return timerId
+// }
+
+// Promise版本
+function ajax2 (cityCode) {
+  return new Promise((resolve, reject)=> {
+    setTimeout(()=>{
+      let result = db.map(item => {
+        return { 'cityName': item.cityName, 'cityCode': item.cityCode}
+      })
+      if(cityCode) {
+        result =  db.filter( item => item.cityCode == cityCode.toString())
+      }
+      resolve(result)
+    },1000)
+  })
+}
+// console.log(ajax(11))
+export default {
+  data() {
+    return {
+      // 保存当前被选中的内容
+      selected: [],
+      // 数据源
+      options: []
     }
   },
   methods: {
-    onUpdateSelected() {
-      console.log('最外面')
-    },
-  }
+    // xxx(newSelected) {
+    //   const cityCode = this.selected[0].cityCode
+    //   ajax2(cityCode).then( result =>{
+    //     console.log(this)
+    //     // 在最初的数据源里面找到 用户选中的项
+    //     let lastLevelSelected =  this.options.filter( item => {
+    //       // 这里少写了一个return折腾了一个下午
+    //       return item['cityCode'] === cityCode
+    //     })[0]
+    //     this.$set(lastLevelSelected, 'children', )
+    //   })
+    // },
+    // 用户要
+    loadData(lastItem, updateOptions) {
+      const cityCode =  lastItem.cityCode
+      console.log('cityCode', cityCode)
+      ajax2(cityCode).then( result=> {
+        updateOptions(result)
+      })
+      setTimeout(()=> {
+        console.log(this.options)
+      },5000)
+    }
 
+  },
+  created() {
+    ajax2(0).then((result)=> {
+      this.options = result
+    })
+  },
 }
 </script>
 

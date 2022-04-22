@@ -38,6 +38,11 @@ export default {
       // 要写成函数 同时带来1个面试题
       // data为什么必须是函数(sticky组件有讲)
       default: ()=> { return []}
+    },
+    // 使用者传的函数 组件帮你调用
+    // 可传可不传
+    loadData: {
+      type: Function
     }
   },
   data(){
@@ -53,13 +58,37 @@ export default {
   methods: {
     // 如果我的子元素也更新 我帮她继续向上传达
     onUpdateSelected(newSelected) {
+      console.log('点击了一层的左边')
       this.$emit('update:selected', newSelected)
+      // 下面代码开始search功能的
+      // options里面没有children 需要ajax请求
+      // 所以使用者还会传1个函数 更新options
+      // 保存一下最后一级被点击的选项
+      let lastItem = newSelected[newSelected.length-1]
+      console.log(lastItem)
+
+      // 更新update最顶级options函数Functions
+      let updateOptions = (result) => {
+        console.log(result)
+        let toUpdate =  this.options.filter( item => {
+          return item.cityCode === lastItem.cityCode
+        })[0]
+        this.$set(toUpdate, 'children', result[0].children)
+      }
+
+      // 用户传了回调 更新最顶级options的函数传个用户
+      if(this.loadData){
+        console.log('调用户的函数')
+        // 回调:把别人传给我的函数调用一下
+        // 调回调的时候传一个函数updateOptions,这个函数理论应该被调用
+        this.loadData(lastItem, updateOptions)
+      }
     },
   },
   computed: {
     result(){
       // 计算每一项的name
-      return this.selected.map( item => item.name).join(' / ')
+      return this.selected.map( item => item.cityName).join(' / ')
     }
   }
 }

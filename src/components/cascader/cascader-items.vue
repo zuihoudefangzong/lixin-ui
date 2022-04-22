@@ -1,20 +1,20 @@
 <template>
   <div class="cascder-item" :style="{height: height}">
-    
     <div class="left">
+      <div>
+      {{selected && selected[level] && selected[level].cityName }}
+      {{selected && selected[level] && selected[level].cityCode }}
+      </div>
       <div class="label"
         v-for="item in items"
-        :key="item.name"
+        :key="item.cityName"
         @click="onclickLabel(item)"
       >
-      {{item.name}}
+      {{item.cityName}}
       <!-- 又children的时候就出现小箭头 -->
       <icon v-if="item.children" name="right" class="icon"></icon>
       </div>
-      <div>
-      {{selected && selected[level] && selected[level].name }}
-      {{level}}
-      </div>
+      
     </div>
     <div class="right" v-if="rightItems">
       <!-- 如果我的子元素也更新 我帮她继续向上传达 -->
@@ -112,6 +112,7 @@ export default {
   .left {
     height: 100%;
     padding: .1em 0;
+    overflow: auto;
   }
   .right {
     height: 100%;
