@@ -17,10 +17,13 @@
       </div>
     </div>
     <div class="right" v-if="rightItems">
+      <!-- 如果我的子元素也更新 我帮她继续向上传达 -->
       <li-cascader-items
         :items="rightItems"
         :height="height"
         :level="level + 1"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
       >
       </li-cascader-items>
     </div>
@@ -57,8 +60,9 @@ export default {
   computed: {
     // 判断右边是否要渲染
     rightItems() {
-      if( this.leftSelected && this.leftSelected.children) {
-        return this.leftSelected.children
+      let currentSelected = this.selected[this.level]
+      if( currentSelected  && currentSelected.children) {
+        return currentSelected.children
       }
       else {
         return null
@@ -66,12 +70,23 @@ export default {
     }
   },
   methods: {
-    // 
+    // 更新当前点击的选项
     onclickLabel(item) {
       // Vue深入响应式原理
-      this.$set(this.selected,this.level,item)
-      // 不能直接props里面的值 深拷贝
-      // let copy = JSON.parse(JSON.stringify(item))
+      // this.$set(this.selected, this.level,item)
+      // 同时不能直接props里面的值 深拷贝
+      let copy = JSON.parse(JSON.stringify(this.selected))
+      // 单向数据流简化问题了
+      // 更新完当前点击的数据
+      copy[this.level] = item
+      // 单向数据流又再次简化问题了
+      // 然后删除当前后面的所有内容
+      copy.splice(this.level + 1)
+      this.$emit('update:selected', copy)
+    },
+    // 如果我的子元素也更新 我帮她继续向上传达
+    onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected)
     }
   }
 }

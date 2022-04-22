@@ -4,10 +4,12 @@
     <div class="trigger" @click="popoverVisible = ! popoverVisible">
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
+      <!-- 监听子组件update:selected事件 -->
       <li-cascader-items
         :items="options"
         :height="popoverHeight"
         :selected="selected"
+        @update:selected="onUpdateSelected"
       ></li-cascader-items>
     </div>
   </div>
@@ -46,7 +48,11 @@ export default {
     }
   },
   components: { LiCascaderItems },
-  computed: {
+  methods: {
+    // 如果我的子元素也更新 我帮她继续向上传达
+    onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected)
+    },
   }
 }
 </script>

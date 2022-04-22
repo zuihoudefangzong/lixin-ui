@@ -1,7 +1,13 @@
 <template>
   <div id="app" style="padding: 100px;">
-    <p>11111111111</p>
-    <li-cascader :options="options" popover-height="200px"></li-cascader>
+    <p>{{selected}}</p>
+    <li-cascader
+      :options="options"
+      popover-height="200px"
+      :selected="selected"
+      @update:selected="selected = $event"
+    >
+      </li-cascader>
     <p>22222222222</p>
   </div>
 </template>
@@ -11,24 +17,19 @@
 export default {
   data() {
     return {
+      // 被选中的内容
+      selected: [],
       options: [
         {
           name: '浙江',
           children: [
             {
               name: '杭州',
-              children: [
-                {name: '上城'},
-                {name: '下城'},
-                {name: '江干'},
-              ]
+              children: [{name: '上城'},{name: '下城'},{name: '江干'},]
             },
             {
               name: '嘉兴',
-              children: [
-                {name: '南湖'},
-                {name: '秀洲'},
-                {name: '嘉善'},
+              children: [{name: '南湖'},{name: '秀洲'},{name: '嘉善'},
               ]
             },
           ]
@@ -38,11 +39,7 @@ export default {
           children: [
             {
               name: '福州',
-              children: [
-                {name: '鼓楼'},
-                {name: '台江'},
-                {name: '仓山'},
-              ]
+              children: [{name: '鼓楼'},{name: '台江'},{name: '仓山'},]
             },
           ]
         },
@@ -51,16 +48,18 @@ export default {
           children: [
             {
               name: '合肥',
-              children: [
-                {name: '瑶海'},
-                {name: '庐阳'},
-              ]
+              children: [{name: '瑶海'},{name: '庐阳'},]
             },
           ]
         }
       ]
     }
   },
+  methods: {
+    onUpdateSelected() {
+      console.log('最外面')
+    },
+  }
 }
 </script>
 
