@@ -1,13 +1,19 @@
 <template>
   <div id="app" style="padding: 100px;">
     <p>{{selected}}</p>
-    <li-cascader
+    <!-- <li-cascader
       :options="options"
       popover-height="200px"
       :selected="selected"
       @update:selected="selected = $event"
     >
-      </li-cascader>
+    </li-cascader> -->
+    <li-cascader
+      :options="options"
+      popover-height="200px"
+      :selected.sync="selected"
+    >
+    </li-cascader>
     <p>22222222222</p>
   </div>
 </template>
@@ -60,6 +66,7 @@ export default {
       console.log('最外面')
     },
   }
+
 }
 </script>
 

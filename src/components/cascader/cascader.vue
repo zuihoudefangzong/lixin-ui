@@ -1,7 +1,9 @@
 <template>
   <div class="cascader">
     <!-- trigger触发层 -->
-    <div class="trigger" @click="popoverVisible = ! popoverVisible">
+    <div class="trigger"
+      @click="popoverVisible = ! popoverVisible"
+    >{{result || '&nbsp;'}}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <!-- 监听子组件update:selected事件 -->
@@ -53,6 +55,12 @@ export default {
     onUpdateSelected(newSelected) {
       this.$emit('update:selected', newSelected)
     },
+  },
+  computed: {
+    result(){
+      // 计算每一项的name
+      return this.selected.map( item => item.name).join(' / ')
+    }
   }
 }
 </script>
@@ -63,8 +71,11 @@ export default {
   position: relative;
   .trigger {
     border: 1px solid red;
-    height: 32px;
-    width: 100px;
+    height: $input-height;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 .5em;
+    min-width: 10em;
   }
   .popover-wrapper {
     display: flex;
