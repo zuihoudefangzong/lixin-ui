@@ -1,94 +1,91 @@
-export default [{
-	"cityName": "北京",
-	"cityCode": "10",
-	"children": [{
-		"cityName": "北京",
-		"cityCode": "1010",
-		"children": [{
-				"cityName": "北京",
-				"cityCode": "101010"
-			},
-			{
-				"cityName": "宣武区",
-				"cityCode": "101011"
-			},
-			{
-				"cityName": "朝阳区",
-				"cityCode": "101012"
-			},
-			{
-				"cityName": "丰台区",
-				"cityCode": "101013"
-			},
-			{
-				"cityName": "石景山区",
-				"cityCode": "101014"
-			},
-			{
-				"cityName": "海淀区",
-				"cityCode": "101015"
-			},
-			{
-				"cityName": "门头沟区",
-				"cityCode": "101016"
-			},
-			{
-				"cityName": "房山区",
-				"cityCode": "101017"
-			},
-			{
-				"cityName": "通州区",
-				"cityCode": "101018"
-			},
-			{
-				"cityName": "顺义区",
-				"cityCode": "101019"
-			},
-			{
-				"cityName": "昌平区",
-				"cityCode": "101020"
-			},
-			{
-				"cityName": "大兴区",
-				"cityCode": "101021"
-			},
-			{
-				"cityName": "怀柔区",
-				"cityCode": "101022"
-			},
-			{
-				"cityName": "平谷区",
-				"cityCode": "101023"
-			},
-			{
-				"cityName": "崇文区",
-				"cityCode": "101024"
-			},
-			{
-				"cityName": "西城区",
-				"cityCode": "101025"
-			},
-			{
-				"cityName": "东城区",
-				"cityCode": "101026"
-			},
-			{
-				"cityName": "密云区",
-				"cityCode": "101027"
-			},
-			{
-				"cityName": "延庆",
-				"cityCode": "101028"
-			}
-		]
-	}]
-}, {
+export default [
+{
+  "cityName": "北京",
+  "cityCode": "10",
+  "children":  [
+      {
+        "cityName": "北京",
+        "cityCode": "101010"
+      },
+      {
+        "cityName": "宣武区",
+        "cityCode": "101011"
+      },
+      {
+        "cityName": "朝阳区",
+        "cityCode": "101012"
+      },
+      {
+        "cityName": "丰台区",
+        "cityCode": "101013"
+      },
+      {
+        "cityName": "石景山区",
+        "cityCode": "101014"
+      },
+      {
+        "cityName": "海淀区",
+        "cityCode": "101015"
+      },
+      {
+        "cityName": "门头沟区",
+        "cityCode": "101016"
+      },
+      {
+        "cityName": "房山区",
+        "cityCode": "101017"
+      },
+      {
+        "cityName": "通州区",
+        "cityCode": "101018"
+      },
+      {
+        "cityName": "顺义区",
+        "cityCode": "101019"
+      },
+      {
+        "cityName": "昌平区",
+        "cityCode": "101020"
+      },
+      {
+        "cityName": "大兴区",
+        "cityCode": "101021"
+      },
+      {
+        "cityName": "怀柔区",
+        "cityCode": "101022"
+      },
+      {
+        "cityName": "平谷区",
+        "cityCode": "101023"
+      },
+      {
+        "cityName": "崇文区",
+        "cityCode": "101024"
+      },
+      {
+        "cityName": "西城区",
+        "cityCode": "101025"
+      },
+      {
+        "cityName": "东城区",
+        "cityCode": "101026"
+      },
+      {
+        "cityName": "密云区",
+        "cityCode": "101027"
+      },
+      {
+        "cityName": "延庆",
+        "cityCode": "101028"
+      }
+    ]
+}, 
+{
 	"cityName": "天津",
 	"cityCode": "11",
-	"children": [{
-		"cityName": "天津",
-		"cityCode": "1111",
-		"children": [{
+	"children":  [
+      {
 				"cityName": "天津",
 				"cityCode": "111129"
 			},
@@ -169,102 +166,98 @@ export default [{
 				"cityCode": "111148"
 			}
 		]
-	}]
-}, {
-	"cityName": "上海",
-	"cityCode": "12",
-	"children": [{
-		"cityName": "上海",
-		"cityCode": "1212",
-		"children": [{
-				"cityName": "上海",
-				"cityCode": "121249"
-			},
-			{
-				"cityName": "黄浦区",
-				"cityCode": "121250"
-			},
-			{
-				"cityName": "卢湾区",
-				"cityCode": "121251"
-			},
-			{
-				"cityName": "徐汇区",
-				"cityCode": "121252"
-			},
-			{
-				"cityName": "长宁区",
-				"cityCode": "121253"
-			},
-			{
-				"cityName": "静安区",
-				"cityCode": "121254"
-			},
-			{
-				"cityName": "普陀区",
-				"cityCode": "121255"
-			},
-			{
-				"cityName": "闸北区",
-				"cityCode": "121256"
-			},
-			{
-				"cityName": "虹口区",
-				"cityCode": "121257"
-			},
-			{
-				"cityName": "杨浦区",
-				"cityCode": "121258"
-			},
-			{
-				"cityName": "闵行区",
-				"cityCode": "121259"
-			},
-			{
-				"cityName": "宝山区",
-				"cityCode": "121260"
-			},
-			{
-				"cityName": "嘉定区",
-				"cityCode": "121261"
-			},
-			{
-				"cityName": "浦东新区",
-				"cityCode": "121262"
-			},
-			{
-				"cityName": "金山区",
-				"cityCode": "121263"
-			},
-			{
-				"cityName": "松江区",
-				"cityCode": "121264"
-			},
-			{
-				"cityName": "青浦区",
-				"cityCode": "121265"
-			},
-			{
-				"cityName": "南汇区",
-				"cityCode": "121266"
-			},
-			{
-				"cityName": "奉贤区",
-				"cityCode": "121267"
-			},
-			{
-				"cityName": "崇明",
-				"cityCode": "121268"
-			}
-		]
-	}]
-}, {
+}, 
+{
+  "cityName": "上海",
+  "cityCode": "12",
+  "children": [
+      {
+        "cityName": "上海",
+        "cityCode": "121249"
+      },
+      {
+        "cityName": "黄浦区",
+        "cityCode": "121250"
+      },
+      {
+        "cityName": "卢湾区",
+        "cityCode": "121251"
+      },
+      {
+        "cityName": "徐汇区",
+        "cityCode": "121252"
+      },
+      {
+        "cityName": "长宁区",
+        "cityCode": "121253"
+      },
+      {
+        "cityName": "静安区",
+        "cityCode": "121254"
+      },
+      {
+        "cityName": "普陀区",
+        "cityCode": "121255"
+      },
+      {
+        "cityName": "闸北区",
+        "cityCode": "121256"
+      },
+      {
+        "cityName": "虹口区",
+        "cityCode": "121257"
+      },
+      {
+        "cityName": "杨浦区",
+        "cityCode": "121258"
+      },
+      {
+        "cityName": "闵行区",
+        "cityCode": "121259"
+      },
+      {
+        "cityName": "宝山区",
+        "cityCode": "121260"
+      },
+      {
+        "cityName": "嘉定区",
+        "cityCode": "121261"
+      },
+      {
+        "cityName": "浦东新区",
+        "cityCode": "121262"
+      },
+      {
+        "cityName": "金山区",
+        "cityCode": "121263"
+      },
+      {
+        "cityName": "松江区",
+        "cityCode": "121264"
+      },
+      {
+        "cityName": "青浦区",
+        "cityCode": "121265"
+      },
+      {
+        "cityName": "南汇区",
+        "cityCode": "121266"
+      },
+      {
+        "cityName": "奉贤区",
+        "cityCode": "121267"
+      },
+      {
+        "cityName": "崇明",
+        "cityCode": "121268"
+      }
+    ]
+},
+{
 	"cityName": "重庆",
 	"cityCode": "13",
-	"children": [{
-		"cityName": "重庆",
-		"cityCode": "1313",
-		"children": [{
+	"children": [
+      {
 				"cityName": "重庆",
 				"cityCode": "131369"
 			},
@@ -433,7 +426,6 @@ export default [{
 				"cityCode": "1313110"
 			}
 		]
-	}]
 }, {
 	"cityName": "河北",
 	"cityCode": "14",

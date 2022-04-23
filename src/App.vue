@@ -9,10 +9,10 @@
     >
     </li-cascader> -->
     <li-cascader
-      :options="options"
+      :options.sync="options"
       popover-height="200px"
       :selected.sync="selected"
-      :loadData="loadData"
+      :load-data="loadData"
     >
     </li-cascader>
     <p>22222222222</p>
@@ -74,10 +74,16 @@ function ajax2 (cityCode) {
         return { 'cityName': item.cityName, 'cityCode': item.cityCode}
       })
       if(cityCode) {
-        result =  db.filter( item => item.cityCode == cityCode.toString())
+        // 找到市区
+        let city =  db.filter( item => item.cityCode == cityCode.toString())[0].children
+        // 不要数组第一项 数组第一项有问题
+        city.shift()
+        result = city.map(item => {
+          return { 'cityName': item.cityName, 'cityCode': item.cityCode}
+        })
       }
       resolve(result)
-    },1000)
+    },500)
   })
 }
 // console.log(ajax(11))
@@ -103,16 +109,16 @@ export default {
     //     this.$set(lastLevelSelected, 'children', )
     //   })
     // },
+
     // 用户要
     loadData(lastItem, updateOptions) {
       const cityCode =  lastItem.cityCode
-      console.log('cityCode', cityCode)
       ajax2(cityCode).then( result=> {
         updateOptions(result)
       })
-      setTimeout(()=> {
+      setTimeout(() => {
         console.log(this.options)
-      },5000)
+      }, 1000);
     }
 
   },

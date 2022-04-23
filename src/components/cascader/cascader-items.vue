@@ -50,12 +50,10 @@ export default {
     level: {
       type: Number,
       default: 0
-    }
-  },
-  data() {
-    return {
-      leftSelected: null
-    }
+    },
+    loadData: {
+        type: Function
+    },
   },
   computed: {
     // 判断右边是否要渲染

@@ -12,6 +12,7 @@
         :height="popoverHeight"
         :selected="selected"
         @update:selected="onUpdateSelected"
+        :loadData="loadData"
       ></li-cascader-items>
     </div>
   </div>
@@ -49,31 +50,76 @@ export default {
     return {
       // popover是否可见
       popoverVisible: false,
-      // 用户选择的省
-      level1Selected: null,
-      level2Selected: null
+      loadingItem: {},
     }
   },
   components: { LiCascaderItems },
   methods: {
     // 如果我的子元素也更新 我帮她继续向上传达
     onUpdateSelected(newSelected) {
-      console.log('点击了一层的左边')
+      // 向最顶级selected传递用户选中的内容
       this.$emit('update:selected', newSelected)
       // 下面代码开始search功能的
       // options里面没有children 需要ajax请求
       // 所以使用者还会传1个函数 更新options
       // 保存一下最后一级被点击的选项
       let lastItem = newSelected[newSelected.length-1]
-      console.log(lastItem)
+
+      // 定义函数simplest功能就是给我1个数组 返回数组元素里面.cityCode
+      // cityCode必须是唯一的
+      let simplest = (array,cityCode) => {
+        return array.filter(item => item.cityCode === cityCode)[0]
+      }
+
+      // 找到最简单的情况 数组每一项元素里面都没有children数组了
+      // cityCode必须是唯一的
+      let complex = (array, cityCode, childrenArray) => {
+        // 找到最简单的情况 数组每1项元素里面都没有children数组
+        // let noChildren = []
+        // 数组每一项元素里面还有children数组了
+        let hasChildren = []
+        array.forEach( item => {
+          if (item.children) {
+            hasChildren.push(item)
+          }
+          // else {
+          //   noChildren.push(item)
+          // }
+        })
+
+        // 先从最简单的情况 数组的最表明一层找
+        let found = simplest(array, cityCode)
+        console.log(found)
+
+        // 现在从最简单的情况里面找到了
+        if(found) { return found }
+        else {
+          // 最简单没有找到就开始从haschilren里面
+          // found = simplest(hasChildren, id)
+          // haschildren最表明一层找到了?
+          // if (found) {return found}
+          // 最表明一层没找到 就遍历hasChildren.children
+          for(let i=0; i< hasChildren.length; i++) {
+            // 递归自身
+            found =  complex(hasChildren[i].children, cityCode)
+            if(found) { return found }
+          }
+          // 递归完 依然没找 cityCode不存在
+          return undefined
+        }
+        
+      }
 
       // 更新update最顶级options函数Functions
       let updateOptions = (result) => {
-        console.log(result)
-        let toUpdate =  this.options.filter( item => {
-          return item.cityCode === lastItem.cityCode
-        })[0]
-        this.$set(toUpdate, 'children', result[0].children)
+        // 违法单向数据流 不能直接改props里面的值
+        let copy = JSON.parse(JSON.stringify(this.options))
+        // 找到要挂children属性的元素 拿到当前对象的内存地址
+        let toUpdate = complex(copy, lastItem.cityCode)
+        // 拿到当前对象的内存地址 挂children
+        toUpdate.children = result
+        // 向最顶级selected传递 更改options数据源
+        this.$emit('update:options', copy)
       }
 
       // 用户传了回调 更新最顶级options的函数传个用户
