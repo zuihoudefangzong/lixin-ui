@@ -11,8 +11,9 @@
         @click="onclickLabel(item)"
       >
       {{item.cityName}}
-      <!-- 又children的时候就出现小箭头 -->
-      <icon v-if="item.children" name="right" class="icon"></icon>
+      <!-- 有children的时候就出现小箭头(死数据的时候)  -->
+      <!-- isLeaf是否叶子 当不是叶子 说明有下一级 -->
+      <icon v-if="!item.isLeaf" name="right" class="icon"></icon>
       </div>
       
     </div>
@@ -38,6 +39,7 @@ export default {
   name: 'LiCascaderItems',
   components: { Icon },
   props: {
+    // 最顶级的数据源options
     items: Array,
     // 接住父组件传给我的height
     height: String,
@@ -57,13 +59,15 @@ export default {
   },
   computed: {
     // 判断右边是否要渲染
+    // computed缓存带来的bug  this.selected没改变导致UI没改变
     rightItems() {
-      let currentSelected = this.selected[this.level]
-      if( currentSelected  && currentSelected.children) {
-        return currentSelected.children
-      }
-      else {
-        return null
+      // 假如用户没点击
+      if(this.selected[this.level]){
+        // 找到被选中的selected
+        let selected = this.items.filter( item => item.cityName === this.selected[this.level].cityName)[0]
+        if(selected && selected.children && selected.children.length > 0) {
+          return selected.children
+        }
       }
     }
   },
