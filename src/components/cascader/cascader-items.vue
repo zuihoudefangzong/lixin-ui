@@ -10,10 +10,10 @@
         :key="item.cityName"
         @click="onclickLabel(item)"
       >
-      {{item.cityName}}
-      <!-- 有children的时候就出现小箭头(死数据的时候)  -->
+      <span class="name">{{item.cityName}}</span>
+      <!-- 有children的时候就出现小箭头(静态数据)  -->
       <!-- isLeaf是否叶子 当不是叶子 说明有下一级 -->
-      <icon v-if="!item.isLeaf" name="right" class="icon"></icon>
+      <icon v-if="rightArrowVisible(item)" name="right" class="icon"></icon>
       </div>
       
     </div>
@@ -53,6 +53,7 @@ export default {
       type: Number,
       default: 0
     },
+    // 只要传了loadData 就是动态加载
     loadData: {
         type: Function
     },
@@ -70,6 +71,7 @@ export default {
         }
       }
     }
+    
   },
   methods: {
     // 更新当前点击的选项
@@ -89,6 +91,14 @@ export default {
     // 如果我的子元素也更新 我帮她继续向上传达
     onUpdateSelected(newSelected) {
       this.$emit('update:selected', newSelected)
+    },
+    // 计算属性不支持参数 只能用methods
+    // 是否可见Visible右边箭头的判断依据
+    rightArrowVisible(item) {
+      // 先判断有没有传lodaData
+      // isLeaf是否叶子 当不是叶子 说明有下一级
+      // 没传loadingData就是静态数据 就根据item.children判断
+      return this.loadData ? !item.isLeaf : item.children
     }
   }
 }
@@ -103,11 +113,23 @@ export default {
   // 暂时高度写死
   height: 100px;
   .label {
-    padding: .2em .8em;
+    padding: .4em .8em;
     display: flex;
     align-items: center;
+    // 箭头手型
+    cursor: pointer;
+    &:hover {
+      background: $grey;
+    }
+    > .name {
+      margin-right: .8em;
+      // 用户不能选中粘贴
+      user-select: none;
+    }
     .icon {
-      margin-left: .2em;
+      // margin-left: .2em;
+      // auto 让箭头对齐
+      margin-left: auto;
       transform: scale(0.8);
     }
   }

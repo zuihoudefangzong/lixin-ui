@@ -12,7 +12,6 @@
       :options.sync="options"
       popover-height="200px"
       :selected.sync="selected"
-      :load-data="loadData"
     >
     </li-cascader>
     <p>22222222222</p>
@@ -21,39 +20,39 @@
 
 <script>
 let optionsdemo=[
-        {
-          name: '浙江',
-          children: [
-            {
-              name: '杭州',
-              children: [{name: '上城'},{name: '下城'},{name: '江干'},]
-            },
-            {
-              name: '嘉兴',
-              children: [{name: '南湖'},{name: '秀洲'},{name: '嘉善'},
-              ]
-            },
-          ]
-        },
-        {
-          name: '福建',
-          children: [
-            {
-              name: '福州',
-              children: [{name: '鼓楼'},{name: '台江'},{name: '仓山'},]
-            },
-          ]
-        },
-        {
-          name: '安徽',
-          children: [
-            {
-              name: '合肥',
-              children: [{name: '瑶海'},{name: '庐阳'},]
-            },
-          ]
-        }
-      ]
+  {
+    cityName: '浙江',
+    children: [
+      {
+        cityName: '杭州',
+        children: [{cityName: '上城'},{cityName: '下城'},{cityName: '江干'},]
+      },
+      {
+        cityName: '嘉兴',
+        children: [{cityName: '南湖'},{cityName: '秀洲'},{cityName: '嘉善'},
+        ]
+      },
+    ]
+  },
+  {
+    cityName: '福建',
+    children: [
+      {
+        cityName: '福州',
+        children: [{cityName: '鼓楼'},{cityName: '台江'},{cityName: '仓山'},]
+      },
+    ]
+  },
+  {
+    cityName: '安徽',
+    children: [
+      {
+        cityName: '合肥',
+        children: [{cityName: '瑶海'},{cityName: '庐阳'},]
+      },
+    ]
+  }
+]
 import db from './components/cascader/db'
 
 // 回调版本
@@ -93,7 +92,7 @@ export default {
       // 保存当前被选中的内容
       selected: [],
       // 数据源
-      options: []
+      options: optionsdemo
     }
   },
   methods: {
@@ -123,9 +122,9 @@ export default {
 
   },
   created() {
-    ajax2(0).then((result)=> {
-      this.options = result
-    })
+    // ajax2(0).then((result)=> {
+    //   this.options = result
+    // })
   },
 }
 </script>

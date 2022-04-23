@@ -41,7 +41,7 @@ export default {
       default: ()=> { return []}
     },
     // 使用者传的函数 组件帮你调用
-    // 可传可不传
+    // 只要传了loadData 就是动态加载
     loadData: {
       type: Function
     }
@@ -50,7 +50,6 @@ export default {
     return {
       // popover是否可见
       popoverVisible: false,
-      loadingItem: {},
     }
   },
   components: { LiCascaderItems },
@@ -89,7 +88,6 @@ export default {
 
         // 先从最简单的情况 数组的最表明一层找
         let found = simplest(array, cityCode)
-        console.log(found)
 
         // 现在从最简单的情况里面找到了
         if(found) { return found }
@@ -123,7 +121,8 @@ export default {
       }
 
       // 用户传了回调 更新最顶级options的函数传个用户
-      if(this.loadData){
+      // 同时要判断点击的选中 是否为叶子节点
+      if(!lastItem.isLeaf && this.loadData){
         console.log('调用户的函数')
         // 回调:把别人传给我的函数调用一下
         // 调回调的时候传一个函数updateOptions,这个函数理论应该被调用
