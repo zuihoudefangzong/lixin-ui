@@ -21,6 +21,8 @@ import Popover from './components/popover/'
 import Collapse from './components/collapse/'
 // cascader级联选择器
 import Cascader from './components/cascader/'
+// carousel轮播图组件
+import Carousel from './components/carousel/'
 
 // 声明全局组件
 Vue.component('li-button', Button)
@@ -45,6 +47,8 @@ Vue.use(Popover)
 Vue.use(Collapse)
 // cascader级联选择器组件插件使用
 Vue.use(Cascader)
+// carousel轮播图组件插件使用
+Vue.use(Carousel)
 
 
 Vue.config.productionTip = false
