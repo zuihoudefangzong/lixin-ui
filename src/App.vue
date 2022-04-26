@@ -1,13 +1,13 @@
 <template>
-  <div id="app" style="padding: 100px;">
-    <li-carousel>
-      <li-carousel-item>
+  <div id="app" style="padding: 50px;">
+    <li-carousel :selected="selected">
+      <li-carousel-item name="1">
         <div class="box">1</div>
       </li-carousel-item>
-      <li-carousel-item>
+      <li-carousel-item name="2">
         <div class="box">2</div>
       </li-carousel-item>
-      <li-carousel-item>
+      <li-carousel-item name="3">
         <div class="box">3</div>
       </li-carousel-item>
     </li-carousel>
@@ -16,7 +16,22 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      selected: '1'
+    }
+  },
+  mounted() {
+    let n = 1
+    setInterval(() => {
+      if(n===4) {
+        n = 1
+      }
+      this.selected = n.toString()
+      n++
+    }, 3000);
+  }
 }
 </script>
 <style>
