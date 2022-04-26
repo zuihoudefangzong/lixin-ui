@@ -1,13 +1,13 @@
 <template>
-  <div id="app" style="padding: 50px;">
-    <li-carousel :selected="selected">
-      <li-carousel-item name="1">
+  <div id="app">
+    <li-carousel :selected.sync="selected">
+      <li-carousel-item name="第1">
         <div class="box">1</div>
       </li-carousel-item>
-      <li-carousel-item name="2">
+      <li-carousel-item name="第2">
         <div class="box">2</div>
       </li-carousel-item>
-      <li-carousel-item name="3">
+      <li-carousel-item name="第3">
         <div class="box">3</div>
       </li-carousel-item>
     </li-carousel>
@@ -19,18 +19,10 @@ export default {
   name: 'App',
   data() {
     return {
-      selected: '1'
+      selected: '第3'
     }
   },
   mounted() {
-    let n = 1
-    setInterval(() => {
-      if(n===4) {
-        n = 1
-      }
-      this.selected = n.toString()
-      n++
-    }, 3000);
   }
 }
 </script>
@@ -47,7 +39,7 @@ html {--font-size: 14px;}
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
 .box {
-  width: 200px;
+  width: 100%;
   height: 150px;
   background-color: #99a9bf;
   border: 1px solid red;
