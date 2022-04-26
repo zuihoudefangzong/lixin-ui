@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <li-carousel :selected.sync="selected">
+    <li-carousel class="wrapper" :selected.sync="selected">
       <li-carousel-item name="第1">
         <div class="box">1</div>
       </li-carousel-item>
@@ -38,6 +38,7 @@ html {--font-size: 14px;}
 /* :root伪类选择器配合var()函数 */
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
+.wrapper {margin: 20px;}
 .box {
   width: 100%;
   height: 150px;
