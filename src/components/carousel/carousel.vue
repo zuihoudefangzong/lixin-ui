@@ -4,7 +4,6 @@
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
     @touchstart="onTouchStart"
-    @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
     <!-- 窗口window -->
@@ -23,6 +22,19 @@
             {{n}}
           </li>
         </ul>
+        <!-- 左右箭头 -->
+        <span
+          class="li-carousel-prev"
+          @click="onClickPrev"
+        >
+          <icon name="left"></icon>
+        </span>
+        <span
+          class="li-carousel-next"
+          @click="onClickNext"
+        >
+          <icon name="right"></icon>
+        </span>
       </div>
       
     </div>
@@ -31,8 +43,10 @@
 </template>
 
 <script>
+import Icon from '../icon'
 export default {
   name: 'LiCarousel',
+  components: { Icon },
   props: {
     // 当前选中的幻灯片
     // 不传默认第一张开始
@@ -179,21 +193,43 @@ export default {
       console.log(e.touches[0],'触摸')
       this.startTouch = e.touches[0]
     },
-    onTouchMove(e) {
-      // console.log(e.touches,'触摸移动中')
-    },
     onTouchEnd(e) {
       // 触摸end只剩下changedTouches有检测结束的手指头
-      console.log('触摸end')
-      let endTouch = e.changedTouches[0]
-      if(endTouch.clientX > this.startTouch.clientX){
-        console.log('右边')
+      // console.log('触摸end')
+      let { clientX: x1, clientY: y1} = this.startTouch
+      let { clientX: x2, clientY: y2}= e.changedTouches[0]
+
+      // sqrt开根号 pow平方
+      let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+      // console.log('斜边'+distance)
+      // abs绝对值
+      let deltaY = Math.abs(y2 - y1)
+      // console.log('对边' + deltaY)
+      // 斜边比对边倍数
+      let rate = distance / deltaY
+      // console.log('斜边比对边倍数'+rate)
+      if(rate > 2 ) {
+        console.log('在滑轮播图')
+        // 在滑轮播图 才开始判断x轴
+        if(x2 > x1) {
+          // 用户往左滑 轮播往左走
+          this.select(this.selectedIndex - 1)
+        }
+        else {
+          this.select(this.selectedIndex + 1)
+        }
       }
-      else {
-        console.log('左边')
-      }
-      // this.playAutomatically()
+      // 恢复自动播放
+      this.playAutomatically()
     },
+
+    // 左右箭头事件
+    onClickPrev () {
+      this.select(this.selectedIndex - 1)
+    },
+    onClickNext () {
+      this.select(this.selectedIndex + 1)
+    }
   }
 }
 </script>
@@ -209,8 +245,8 @@ export default {
     position: relative;
   }
   &-dots {
-    position: absolute;
     list-style: none;
+    position: absolute;
     margin: 0;
     padding: 0;
     z-index: 2;
@@ -237,6 +273,19 @@ export default {
       }
       
     }
+  }
+  &-prev,&-next {
+    position: absolute;
+    top: 50%;
+    padding: 11px;
+    border-radius: 50%;
+    background-color: red;
+  }
+  &-prev {
+    left: 6px;
+  }
+  &-next {
+    right: 6px;
   }
 }
 </style>
