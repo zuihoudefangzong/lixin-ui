@@ -3,6 +3,9 @@
   <div class="li-carousel"
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
   >
     <!-- 窗口window -->
     <div class="li-carousel-window">
@@ -53,6 +56,8 @@ export default {
       lastSelectedIndex: undefined,
       // setTimeout的id
       timerId: undefined,
+      // 记录手指触摸的位置
+      startTouch: null
     }
   },
   mounted() {
@@ -165,7 +170,30 @@ export default {
       if(newIndex === -1 ) {newIndex =  this.names.length - 1}
       // 讲下一次要显示的name告诉最顶级
       this.$emit('update:selected', this.names[newIndex])
-    }
+    },
+
+    // 手机mobile
+    onTouchStart(e) {
+      // stop
+      this.pause()
+      console.log(e.touches[0],'触摸')
+      this.startTouch = e.touches[0]
+    },
+    onTouchMove(e) {
+      // console.log(e.touches,'触摸移动中')
+    },
+    onTouchEnd(e) {
+      // 触摸end只剩下changedTouches有检测结束的手指头
+      console.log('触摸end')
+      let endTouch = e.changedTouches[0]
+      if(endTouch.clientX > this.startTouch.clientX){
+        console.log('右边')
+      }
+      else {
+        console.log('左边')
+      }
+      // this.playAutomatically()
+    },
   }
 }
 </script>

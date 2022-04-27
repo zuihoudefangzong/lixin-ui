@@ -41,7 +41,7 @@ img { max-width: 100%;}
 .wrapper {margin: 20px;}
 .box {
   width: 100%;
-  height: 150px;
+  height: 550px;
   background-color: #99a9bf;
   border: 1px solid red;
   display: flex;
