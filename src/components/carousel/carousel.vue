@@ -8,19 +8,20 @@
     <div class="li-carousel-window">
       <div class="li-carousel-wrapper">
         <slot></slot>
-      </div>
-      <div class="li-carousel-dots">
         <!-- childrenLength需要写在data里才能响应式 -->
         <!-- selectedIndex === index 才会添加类名active -->
-        <span
-          v-for="n in childrenLength"
-          :key="n"
-          :class="{'active': selectedIndex === n-1}"
-          @click="select(n-1)"
-        >
-          {{n-1}}
-        </span>
+        <ul class="li-carousel-dots">
+          <li
+            v-for="n in childrenLength"
+            :key="n"
+            :class="{'active': selectedIndex === n-1}"
+            @click="select(n-1)"
+          >
+            {{n}}
+          </li>
+        </ul>
       </div>
+      
     </div>
     
   </div>
@@ -170,6 +171,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'var';
 .li-carousel {
   border: 1px solid black;
   // 继承上面的前缀 li-carousel-window
@@ -179,12 +181,34 @@ export default {
     position: relative;
   }
   &-dots {
-    >span {
-      &.active {
-        background: red;
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    >li {
+      width: 1.2em;
+      height: 1.2em;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin: 0 8px;
+      background-color: transparent;
+      &:hover {
+        cursor: pointer;
       }
+      &.active {
+        background: $border-color;
+        &:hover {
+          cursor: default;
+        }
+      }
+      
     }
-    
   }
 }
 </style>

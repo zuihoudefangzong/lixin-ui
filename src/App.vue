@@ -19,7 +19,7 @@ export default {
   name: 'App',
   data() {
     return {
-      selected: '第3'
+      selected: undefined
     }
   },
   mounted() {
