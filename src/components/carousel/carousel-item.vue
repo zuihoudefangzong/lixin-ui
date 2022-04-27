@@ -14,8 +14,10 @@ export default {
   name: 'LiCarouselItem',
   props: {
     // 幻灯片的名字必传
-    name: String,
-    require: true
+    name: {
+      type: String,
+      require: true
+    }
   },
   data() {
     return {

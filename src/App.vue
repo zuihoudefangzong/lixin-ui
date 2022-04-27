@@ -44,5 +44,9 @@ img { max-width: 100%;}
   height: 150px;
   background-color: #99a9bf;
   border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 </style>

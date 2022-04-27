@@ -90,12 +90,16 @@ export default {
     },
     // 轮播自动播放function
     playAutomatically () {
-      // 拿到childrenVue组件的所有name
-      // 最顶级要显示的name 索引
-      let index = this.names.indexOf(this.getSelected())
+      // 保证自动播放开始没有setTimeout
+      if(this.timerId) return
       // 避免直接用setInterval 老手setTimeout模拟setIneterval
       let run = () => {
-        let newIndex = index +1
+        // 拿到childrenVue组件的所有name
+        // 最顶级要显示的name 索引 
+        // 而且要每次setTimeout开始都重新获取
+        let index = this.names.indexOf(this.getSelected())
+        console.log('自动轮播时候的index'+index)
+        let newIndex = index + 1
         // 自动轮播就当自动就等于点击右箭头下一张
         // 告诉外界 下一张要显示的name
         this.select(newIndex)
@@ -114,26 +118,28 @@ export default {
       this.items.forEach( vm => {
         // 更新选中的名字
         // 准备显示的轮播图的index和上一次轮播的index
-        // console.log(this.selectedIndex, this.lastSelectedIndex)
         let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-        // 要判断自动轮播的情况
+        // 要判断在自动轮播的情况 才需要改变动画方向
         if(this.timerId) {
-          // 最后一张回到到第一张的
+          // 最后一张要回到到第一张的
           if (this.lastSelectedIndex === this.childrenLength - 1
             && this.selectedIndex === 0) {
               reverse = false
             }
-          // 第一张回到最后一张的情况
+          // 第一张要回到最后一张的情况
           if(this.lastSelectedIndex === 0 
             && this.selectedIndex === this.childrenLength -1){
               reverse = true
             }
         }
         console.log(reverse)
+        vm.reverse = reverse
         // 向最顶级更新准备显示的轮播图的名字
+        // 就是vm.selected值更改 动画才会开始
+        // 让它进入事件队列 不马上做动画
         this.$nextTick(() => {
-            vm.selected = selected
-          })
+          vm.selected = selected
+        })
       })
     },
     // 停止自动轮播
@@ -153,7 +159,7 @@ export default {
     select(newIndex) {
       // 保存上一张轮播图的index
       this.lastSelectedIndex = this.selectedIndex
-      // console.log(this.lastSelectedIndex)
+      console.log(this.lastSelectedIndex,`newIndex为${newIndex}`)
       if(newIndex === this.names.length ) {newIndex = 0}
       if(newIndex === -1 ) {newIndex =  this.names.length - 1}
       // 讲下一次要显示的name告诉最顶级
