@@ -13,25 +13,30 @@
         <!-- childrenLength需要写在data里才能响应式 -->
         <!-- selectedIndex === index 才会添加类名active -->
         <ul class="li-carousel-dots">
+          <!-- data-index是为了测试的时候好找到当前元素 -->
           <li
             v-for="n in childrenLength"
             :key="n"
             :class="{'active': selectedIndex === n-1}"
             @click="select(n-1)"
+            :data-index="n-1"
           >
             {{n}}
           </li>
         </ul>
         <!-- 左右箭头 -->
+        <!-- data-action是为了测试的时候好找到当前元素 -->
         <span
           class="li-carousel-prev"
           @click="onClickPrev"
+          data-action="prev"
         >
           <icon name="left"></icon>
         </span>
         <span
           class="li-carousel-next"
           @click="onClickNext"
+          data-action="next"
         >
           <icon name="right"></icon>
         </span>
@@ -118,7 +123,7 @@ export default {
         // 最顶级要显示的name 索引 
         // 而且要每次setTimeout开始都重新获取
         let index = this.names.indexOf(this.getSelected())
-        console.log('自动轮播时候的index'+index)
+        // console.log('自动轮播时候的index'+index)
         let newIndex = index + 1
         // 自动轮播就当自动就等于点击右箭头下一张
         // 告诉外界 下一张要显示的name
@@ -152,7 +157,6 @@ export default {
               reverse = true
             }
         }
-        console.log(reverse)
         vm.reverse = reverse
         // 向最顶级更新准备显示的轮播图的名字
         // 就是vm.selected值更改 动画才会开始
@@ -179,7 +183,7 @@ export default {
     select(newIndex) {
       // 保存上一张轮播图的index
       this.lastSelectedIndex = this.selectedIndex
-      console.log(this.lastSelectedIndex,`newIndex为${newIndex}`)
+      // console.log(this.lastSelectedIndex,`newIndex为${newIndex}`)
       if(newIndex === this.names.length ) {newIndex = 0}
       if(newIndex === -1 ) {newIndex =  this.names.length - 1}
       // 讲下一次要显示的name告诉最顶级
