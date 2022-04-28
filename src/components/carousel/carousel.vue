@@ -224,7 +224,9 @@ export default {
         }
       }
       // 恢复自动播放
-      this.playAutomatically()
+      this.$nextTick(() => {
+        this.playAutomatically()
+      })
     },
 
     // 左右箭头事件
