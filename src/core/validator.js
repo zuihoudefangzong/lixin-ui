@@ -28,6 +28,11 @@ class Validator {
   // 不需要私有属性
   constructor(){}
 
+  // 类static私有方法
+  // es5的就是原型私有方法
+  static add (name, fn) {
+    Validator.prototype[name] = fn
+  }
 
   // 实例方法 es5共有属性
   // validate名词校验
