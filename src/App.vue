@@ -1,22 +1,14 @@
 <template>
   <div id="app">
-    <li-carousel class="wrapper" :selected.sync="selected">
-      <li-carousel-item name="第1">
-        <div class="box">1</div>
-      </li-carousel-item>
-      <li-carousel-item name="第2">
-        <div class="box">2</div>
-      </li-carousel-item>
-      <li-carousel-item name="第3">
-        <div class="box">3</div>
-      </li-carousel-item>
-    </li-carousel>
+    <li-form-test></li-form-test>
   </div>
 </template>
 
 <script>
+import LiFormTest from './form-test'
 export default {
   name: 'App',
+  components: {LiFormTest },
   data() {
     return {
       selected: undefined
