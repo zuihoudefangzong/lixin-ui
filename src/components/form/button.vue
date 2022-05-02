@@ -20,11 +20,12 @@ export default {
   },
   methods: {
     handleClick(event) {
+      // 取消默认行为
+      event.preventDefault()
       // console.log(event)
       this.$emit('click', event)
       // 点击button会触发表单form的提交行为
-      // 取消默认行为
-      event.preventDefault()
+      
     }
   }
 }

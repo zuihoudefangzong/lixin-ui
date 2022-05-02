@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import LiFormTest from './form-test'
+import LiFormTest from './form-test.vue'
 export default {
   name: 'App',
   components: {LiFormTest },

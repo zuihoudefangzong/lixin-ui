@@ -11,6 +11,7 @@
 </template>
 
 <script>
+// ElementUI的表单校验规则来自第三方校验规则参见async-validator
 import AsyncValidator from 'async-validator'
 export default {
   name: 'LiFormItem',
@@ -37,9 +38,38 @@ export default {
       if(!this.prop) return
       // 父组件model表单数据对象
       const value = this.form.model[this.prop]
-      // rules通常拿到的是数组
+      // rules拿到的是数组
       const rules = this.form.rules[this.prop]
+
+      // 校验规则 username: rules
+      const desciptor = {
+        [this.prop] : rules
+      }
+      // 开始用async-validator校验
+      const validator = new AsyncValidator(desciptor)
+      // 返回值是1个Promise
+      return validator.validate(
+        {
+          // username:'jiankang'
+          [this.prop]: value
+        },
+        errors => {
+          if(errors) {
+            this.errorMessage = errors[0].message
+          }
+          else {
+            this.errorMessage = ''
+          }
+        }
+      )
     }
+  },
+  // dom挂载到页面上了
+  mounted() {
+    // 监听事件自定义事件validate
+    this.$on('validate', () => {
+      this.validate()
+    })
   }
 };
 </script>

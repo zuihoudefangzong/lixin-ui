@@ -1,30 +1,30 @@
 <template>
-  <li-form>
+  <li-form :model="user" :rules="rules">
     <li-form-item
       label="用户名"
-      :prop="user.username"
+      prop="username"
     >
       <lg-input 
         :value="user.username"
         @input="user.username = $event"
         placeholder="请输入用户名"
-      />
+      ></lg-input>
     </li-form-item>
 
     <li-form-item
       label="密码"
-      :prop="user.password"
+      prop="password"
     >
       <lg-input 
         :value="user.password"
         type="password"
         @input="user.password = $event"
         placeholder="请输入密码"
-      />
+      ></lg-input>
     </li-form-item>
 
     <li-form-item>
-      <lg-button @click="handleClick">登录</lg-button>
+      <lg-button>登录</lg-button>
     </li-form-item>
   </li-form>
 </template>
@@ -43,25 +43,31 @@ export default {
         username: '',
         password: ''
       },
-
-      // Element-ui校验规则的外层
-      userRules: {
-        // 校验规则 始终是数组Array 多个校验条件
+      rules: {
         username: [
-          { required: true, message: '手机号不能为空', trigger: 'blur' },
-          { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+          {
+            required: true,
+            message: '请输入用户名'
+          }
         ],
         password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' },
-          { min: 6, max: 16, message: '密码应为6-16位的长度', trigger: 'blur' }
+          {
+            required: true,
+            message: '请输入密码'
+          },
+          {
+            min: 6,
+            max: 12,
+            message: '请输入6-12位密码'
+          }
         ]
       }
     };
   },
   methods: {
-    handleClick(event) {
-      console.log(event)
-    }
+    // handleClick(event) {
+    //   console.log(event)
+    // }
   },
 };
 </script>
