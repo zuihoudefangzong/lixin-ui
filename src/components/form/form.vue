@@ -12,6 +12,12 @@ export default {
     model: Object,
     // rulse表单验证规则
     rules: Object,
+  },
+  // eventBus 依赖provide
+  provide () {
+    return {
+      form: this
+    }
   }
 };
 </script>
