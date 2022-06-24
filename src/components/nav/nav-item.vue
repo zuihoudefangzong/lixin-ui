@@ -24,6 +24,10 @@ export default {
     onClick () {
       this.$emit('add:selected',this.name)
     }
+  },
+  inject: ['root'],
+  created () {
+    this.root.addItem(this)
   }
 }
 </script>

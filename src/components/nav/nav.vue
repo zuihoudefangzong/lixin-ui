@@ -18,9 +18,9 @@ export default {
       default: false
     }
   },
-  computed: {
-    items () {
-      return this.$children.filter(vm => vm.$options.name = 'LiNavItem')
+  data () {
+    return {
+      items: []
     }
   },
   methods: {
@@ -51,14 +51,29 @@ export default {
           }
         })
       })
+    },
+    // 强耦合的函数 主要给children子vm LiNavItem用
+    addItem (vm){
+      this.items.push(vm)
     }
   },
+  // computed: {
+  //   items () {
+  //     return this.$children.filter(vm => vm.$options.name = 'LiNavItem')
+  //   }
+  // },
   mounted () {
     this.updateChlidren()
     this.listenToChildren()
   },
   updated () {
     this.updateChlidren()
+  },
+  // 提供provide
+  provide () {
+   return {
+     root: this
+   }
   }
 }
 </script>
