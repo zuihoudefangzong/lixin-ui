@@ -1,82 +1,34 @@
 <template>
-  <li-form :model="user" :rules="rules" ref="form">
-    <li-form-item
-      label="用户名"
-      prop="username"
-    >
-      <lg-input 
-        :value="user.username"
-        @input="user.username = $event"
-        placeholder="请输入用户名"
-      ></lg-input>
-    </li-form-item>
+  <li-nav
+    :selected.sync="selected"
 
-    <li-form-item
-      label="密码"
-      prop="password"
-    >
-      <lg-input 
-        :value="user.password"
-        type="password"
-        @input="user.password = $event"
-        placeholder="请输入密码"
-      ></lg-input>
-    </li-form-item>
-
-    <li-form-item>
-      <lg-button @click="login">登录</lg-button>
-    </li-form-item>
-  </li-form>
+  >
+    <li-nav-item name="home">首页</li-nav-item>
+    <!-- <li-nav-item name="about">关于</li-nav-item> -->
+    <li-sub-nav>
+      <template slot="title">关于</template>
+      <li-nav-item name="culture">企业文化</li-nav-item>
+      <li-nav-item name="develops">开发团队</li-nav-item>
+      <li-nav-item name="contacts">联系电话</li-nav-item>
+    </li-sub-nav>
+    <li-nav-item name="hire">招聘</li-nav-item>
+  </li-nav>
 </template>
 
 
 <script>
-import LiForm from './components/form/form.vue'
-import LiFormItem from './components/form/form-item.vue'
-import LgButton from './components/form/button.vue'
-import LgInput from './components/form/input.vue'
+import LiNav from './components/nav/nav.vue'
+import LiNavItem from './components/nav/nav-item.vue'
+import LiSubNav from './components/nav/sub-nav.vue'
+
 export default {
-  name: 'LiFormTest',
-  components: { LiForm, LiFormItem, LgButton, LgInput},
-  data() {
+  name: 'LiNavTest',
+  components: { LiNav,LiNavItem,LiSubNav},
+  data () {
     return {
-      user: {
-        username: '',
-        password: ''
-      },
-      rules: {
-        username: [
-          {
-            required: true,
-            message: '请输入用户名'
-          }
-        ],
-        password: [
-          {
-            required: true,
-            message: '请输入密码'
-          },
-          {
-            min: 6,
-            max: 12,
-            message: '请输入6-12位密码'
-          }
-        ]
-      }
-    };
-  },
-  methods: {
-    login() {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          alert('验证成功')
-        } else {
-          alert('验证失败')
-          // return false
-        }
-      })
+      selected: ['home']
     }
-  },
+  }
 };
 </script>
 
@@ -92,4 +44,5 @@ html {--font-size: 14px;}
 /* :root伪类选择器配合var()函数 */
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
+
 </style>
