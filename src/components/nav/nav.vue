@@ -1,6 +1,5 @@
 <template>
   <div class="li-nav">
-    {{namePath}}
     <slot></slot>
   </div>
 </template>
@@ -85,5 +84,7 @@ export default {
 .li-nav {
   display: flex;
   border: 1px solid $grey;
+  cursor: default;
+  user-select: none;// 不允许用户复制选中
 }
 </style>

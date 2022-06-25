@@ -6,8 +6,16 @@
     }"
     v-click-outside="click"
   >
-    <span @click="onClick">
+    <span
+      class="li-sub-nav-label"
+      @click="onClick"
+    >
       <slot name="title"></slot>
+      <span
+        class="li-sub-nav-icon"
+        :class="{'open':open}">
+        <li-icon name="right"></li-icon>
+      </span>
     </span>
     <div
       class="li-sub-nav-popover"
@@ -20,8 +28,10 @@
 
 <script>
 import ClickOutside from '../click-outside'
+import liIcon from '../icon.vue'
 export default {
   name: 'LiSubNav',
+  components: { liIcon},
   props: {
     name: String,
     required: true
@@ -43,7 +53,6 @@ export default {
       this.open = !this.open
     },
     updateNamePath() {
-      this.active = true
       // 路径名 追加到前面
       this.root.namePath.unshift(this.name)
       if(this.$parent.updateNamePath && this.$parent.$options.name === 'LiSubNav') {
@@ -72,7 +81,7 @@ export default {
       border-top: 1px solid $blue;
     }
   }
-  >span {
+  &-label {
     padding: 10px 20px;
     display: block;
     // display: inline-block;// inline-block有bug
@@ -91,16 +100,37 @@ export default {
     color: $light-color;
     min-width: 8em;
   }
+  &-icon { display: none;}
 }
 
 // 多级嵌套子菜单
 .li-sub-nav .li-sub-nav  {
+  &.active {
+    &::after {
+      display: none;
+    }
+  }
   .li-sub-nav-popover{
     // background: green;
     // position: absolute;
     top: 0;
     left: 100%;
     margin-left: 8px;
-  } 
+  }
+  .li-sub-nav-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .li-sub-nav-icon {
+      display: inline-flex;
+      margin-left: 1em;
+      transition: transform 250ms;
+      &.open {
+        transform: rotate(180deg);
+      }
+      svg {fill: $light-color;}
+    }
+  }
+  
 }
 </style>
