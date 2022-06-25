@@ -1,5 +1,6 @@
 <template>
   <div class="li-nav">
+    {{namePath}}
     <slot></slot>
   </div>
 </template>
@@ -9,18 +10,22 @@ export default {
   name: 'LiNav',
   props: {
     selected: {
-      type: Array,
-      default: ()=> []
+      // type: Array,
+      // default: ()=> []
+      type: String
     },
-    // 是否多选
-    multiper: {
-      type: Boolean,
-      default: false
-    }
+    // 是否多选 只支持单选
+    // multiper: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
   data () {
     return {
-      items: []
+      // 存储所有LiNavItem实例
+      items: [],
+      // 受cascader级联选择器启发 级联选择
+      namePath: []
     }
   },
   methods: {
@@ -37,19 +42,15 @@ export default {
     // 监听或者订阅children的add:selected行为
     listenToChildren () {
       this.items.forEach(vm => {
-        vm.$on('add:selected', (name)=>{
-          console.log(name)
-          if(this.multiper){// 导航栏多选
-            if(this.selected.indexOf(name) < 0 ){
-              // 没有在的时候push 有就不管了
-              this.selected.push(name)
-            }
-            let copy = JSON.parse(JSON.stringify(this.selected))
-            console.log(copy)
-            this.$emit('update:selected',copy)
-          }else {// 导航栏单选
-            this.$emit('update:selected',[name])
-          }
+        vm.$on('update:selected', (name)=>{
+          // if(this.multiper)// 导航栏多选
+          // if(this.selected.indexOf(name) < 0 ){
+          //   // 没有在的时候push 有就不管了
+          //   this.selected.push(name)
+          // }
+          // let copy = JSON.parse(JSON.stringify(this.selected))
+          // console.log(copy)
+          this.$emit('update:selected',name)
         })
       })
     },
@@ -80,8 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~../../styles/_var.scss';
 .li-nav {
   display: flex;
-  border: 1px solid red;
+  border: 1px solid $grey;
 }
 </style>
