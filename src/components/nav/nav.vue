@@ -1,5 +1,8 @@
 <template>
-  <div class="li-nav">
+  <div
+    class="li-nav"
+    :class="{'vertical':vertical}"
+  >
     <slot></slot>
   </div>
 </template>
@@ -18,6 +21,11 @@ export default {
     //   type: Boolean,
     //   default: false
     // }
+    // default vertical竖立纵向的
+    vertical: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -73,7 +81,8 @@ export default {
   // 提供provide
   provide () {
    return {
-     root: this
+     root: this,
+     vertical:this.vertical
    }
   }
 }
@@ -86,5 +95,9 @@ export default {
   border: 1px solid $grey;
   cursor: default;
   user-select: none;// 不允许用户复制选中
+  &.vertical{
+    flex-direction: column;
+    border:1px solid $grey;
+  }
 }
 </style>

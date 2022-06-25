@@ -1,7 +1,8 @@
 <template>
   <li-nav
     :selected.sync="selected"
-
+    vertical
+    style="width:200px; margin:20px;"
   >
     <li-nav-item name="home">首页</li-nav-item>
     <!-- <li-nav-item name="about">关于</li-nav-item> -->
