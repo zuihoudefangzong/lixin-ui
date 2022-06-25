@@ -27,6 +27,7 @@ export default {
   },
   inject: ['root'],
   created () {
+    console.log('触发created')
     this.root.addItem(this)
   }
 }

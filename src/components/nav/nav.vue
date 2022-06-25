@@ -38,6 +38,7 @@ export default {
     listenToChildren () {
       this.items.forEach(vm => {
         vm.$on('add:selected', (name)=>{
+          console.log(name)
           if(this.multiper){// 导航栏多选
             if(this.selected.indexOf(name) < 0 ){
               // 没有在的时候push 有就不管了
