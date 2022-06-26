@@ -3,6 +3,7 @@
     :selected.sync="selected"
     vertical
     style="width:200px; margin:20px;"
+    @update:selected="onChange"
   >
     <li-nav-item name="home">首页</li-nav-item>
     <!-- <li-nav-item name="about">关于</li-nav-item> -->
@@ -38,6 +39,19 @@ export default {
   data () {
     return {
       selected: 'home'
+    }
+  },
+  methods: {
+    onChange(selectd){
+      // console.log(selectd)
+      // if(this.selected.indexOf(selectd)>=0){
+      //   alert(selectd)
+      // }
+    }
+  },
+  watch: {
+    selected(newVal){
+      console.log(newVal)
     }
   }
 };

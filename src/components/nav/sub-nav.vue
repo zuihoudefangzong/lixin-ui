@@ -14,7 +14,10 @@
       <slot name="title"></slot>
       <span
         class="li-sub-nav-icon"
-        :class="{'open':open}">
+        :class="{
+          'open':open,
+          'vertical':vertical
+        }">
         <li-icon name="right"></li-icon>
       </span>
     </span>
