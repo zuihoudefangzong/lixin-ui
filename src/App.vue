@@ -1,59 +1,48 @@
 <template>
-  <li-nav
-    :selected.sync="selected"
-    vertical
-    style="width:200px; margin:20px;"
-    @update:selected="onChange"
-  >
-    <li-nav-item name="home">首页</li-nav-item>
-    <!-- <li-nav-item name="about">关于</li-nav-item> -->
-    <li-sub-nav name="about">
-      <template slot="title">关于</template>
-      <li-nav-item name="culture">企业文化</li-nav-item>
-      <li-nav-item name="develops">开发团队</li-nav-item>
-      <li-sub-nav name="contacts">
-        <template slot="title">联系方式</template>
-        <li-nav-item name="wechat">微信</li-nav-item>
-        <li-nav-item name="qq">qq</li-nav-item>
-        <li-sub-nav name="phone">
-          <template slot="title">手机</template>
-          <li-nav-item name="cm">移动</li-nav-item>
-          <li-nav-item name="cu">联通</li-nav-item>
-          <li-nav-item name="cn">电信</li-nav-item>
-        </li-sub-nav>
-      </li-sub-nav>
-    </li-sub-nav>
-    <li-nav-item name="hire">招聘</li-nav-item>
-  </li-nav>
+  <div class="container">
+    <li-table
+    :dataSource="dataSource"
+    :columns="columns"
+    bordered
+    striped
+    >
+    </li-table>
+    <li-table
+    style="margin-top:20px;"
+    :dataSource="dataSource"
+    :columns="columns"
+    bordered
+    compact
+    >
+    </li-table>
+  </div>
 </template>
 
 
 <script>
-import LiNav from './components/nav/nav.vue'
-import LiNavItem from './components/nav/nav-item.vue'
-import LiSubNav from './components/nav/sub-nav.vue'
+import LiTable from './components/table/table.vue'
 
 export default {
   name: 'LiNavTest',
-  components: { LiNav,LiNavItem,LiSubNav},
+  components: {LiTable},
   data () {
     return {
-      selected: 'home'
+      dataSource: [
+        {id:1,name:'方方',score:100},
+        {id:2,name:'圆圆',score:88},
+        {id:3,name:'张三',score:99},
+        {id:4,name:'李四',score:77},
+        {id:5,name:'超人',score:66},
+        {id:6,name:'蝙蝠侠',score:70},
+        {id:7,name:'汽车人',score:93},
+      ],
+      columns: [
+        {text:'姓名',flied:'name'},
+        {text:'分数',flied:'score'},
+      ]
     }
   },
-  methods: {
-    onChange(selectd){
-      // console.log(selectd)
-      // if(this.selected.indexOf(selectd)>=0){
-      //   alert(selectd)
-      // }
-    }
-  },
-  watch: {
-    selected(newVal){
-      console.log(newVal)
-    }
-  }
+
 };
 </script>
 
@@ -69,5 +58,7 @@ html {--font-size: 14px;}
 /* :root伪类选择器配合var()函数 */
 body {font-size: var(--font-size);}
 img { max-width: 100%;}
-
+.container {
+  margin: 10px;
+}
 </style>
