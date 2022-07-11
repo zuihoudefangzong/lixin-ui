@@ -10,7 +10,13 @@
       >
       <thead>
         <tr>
-          <th><input type="checkbox"></th>
+          <th>
+            <!-- css属性半选indeterminate只能通过js操作 -->
+            <input
+              type="checkbox"
+              @change="onchangeAllItem"
+              ref="allChecked">
+          </th>
           <th v-if="numberVisible">#</th>
           <th v-for="column,index in columns" :key="index">
             {{column.text}}
@@ -20,7 +26,10 @@
       <tbody>
         <tr v-for="item,index in dataSource" :key="item.id">
           <td>
-            <input type="checkbox" @change="onChangeItem(item,)">
+            <input 
+              type="checkbox"
+              @change="onchangeItem(item,index,$event)"
+              :checked="inSelectedItems(item)">
           </td>
           <td v-if="numberVisible">{{index+1}}</td>
           <template v-for="column in columns">
@@ -38,7 +47,10 @@ export default {
   props: {
     dataSource:{
       type: Array,
-      required: true
+      required: true,
+      validator (array) {
+        return !(array.filter(item.id === undefined).length>0)
+      }
     },
     columns: {
       type: Array,
@@ -64,11 +76,48 @@ export default {
       type: Boolean,
       default: false
     },
-
+    selectedItems: {
+      type: Array,
+      default: () => []
+    }
   },
   methods: {
-
+    // 单选
+    onchangeItem(item, index, event){
+      const selected = event.target.checked
+      let copy = JSON.parse(JSON.stringify(this.selectedItems))
+      if(selected) {
+        if(this.inSelectedItems(item) === false){// 避免重复push
+          copy.push(item)
+        }
+      }else {
+        // 因为引用数据类型 只能同过对象的key判断
+        copy = copy.filter(i => i.id !== item.id)
+      }
+      this.$emit('update:selectedItems',copy)
+    },
+    // 全选或者反选
+    onchangeAllItem(event) {
+      const selected = event.target.checked
+      this.$emit('update:selectedItems', selected ? this.dataSource : [])
+    },
+    // 当前是否要选中 取决于selectedItems
+    inSelectedItems(item){// 因为引用数据类型 只能同过对象的key判断
+      return this.selectedItems.filter( i=> i.id ===item.id).length > 0
+    }
     
+  },
+  watch: {
+    selectedItems() {
+      if(this.selectedItems.length === this.dataSource.length){
+        // 全选的时候 半选状态取消
+        this.$refs.allChecked.indeterminate = false
+      }else if(this.selectedItems.length === 0){
+        this.$refs.allChecked.indeterminate = false
+      }else {
+        this.$refs.allChecked.indeterminate = true
+      }
+    }
   }
 }
 </script>

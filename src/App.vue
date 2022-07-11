@@ -1,10 +1,12 @@
 <template>
   <div class="container">
+    <div>{{selected}}</div>
     <li-table
     :dataSource="dataSource"
     :columns="columns"
     bordered
     striped
+    :selected-items.sync="selected"
     >
     </li-table>
     <li-table
@@ -39,7 +41,8 @@ export default {
       columns: [
         {text:'姓名',flied:'name'},
         {text:'分数',flied:'score'},
-      ]
+      ],
+      selected: []
     }
   },
 
