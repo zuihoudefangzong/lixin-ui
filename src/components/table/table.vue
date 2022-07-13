@@ -15,7 +15,8 @@
             <input
               type="checkbox"
               @change="onchangeAllItem"
-              ref="allChecked">
+              ref="allChecked"
+              :checked="areAllItemsSelected">
           </th>
           <th v-if="numberVisible">#</th>
           <th v-for="column in columns" :key="column.field">
@@ -113,13 +114,29 @@ export default {
       if(this.selectedItems.length === this.dataSource.length){
         // 全选的时候 半选状态取消
         this.$refs.allChecked.indeterminate = false
-        this.$refs.allChecked.checked = true
       }else if(this.selectedItems.length === 0){
         this.$refs.allChecked.indeterminate = false
-        this.$refs.allChecked.checked = false
       }else {
         this.$refs.allChecked.indeterminate = true
       }
+    }
+  },
+  computed:{
+    // 计算是否全选
+    areAllItemsSelected(){
+      // 判断两个数组的元素两个id一样
+      // sort默认字典序 sort会改变原数组 单向数据流
+      const a = this.dataSource.map(item =>item.id).sort()
+      const b = this.selectedItems.map(item =>item.id).sort()
+
+      if(a.length !== b.length) return false
+      let equal = true
+      for(let i=0;i<a.length;i++){
+        if(a[i] !== b[i]) {
+          equal = false
+        }
+      }
+      return equal
     }
   }
 }
