@@ -18,7 +18,7 @@
               ref="allChecked">
           </th>
           <th v-if="numberVisible">#</th>
-          <th v-for="column,index in columns" :key="index">
+          <th v-for="column in columns" :key="column.field">
             {{column.text}}
           </th>
         </tr>
@@ -32,8 +32,9 @@
               :checked="inSelectedItems(item)">
           </td>
           <td v-if="numberVisible">{{index+1}}</td>
+          <!-- template不能放v-for的key -->
           <template v-for="column in columns">
-            <td>{{item[column.flied]}}</td>
+            <td :key="column.flied">{{item[column.flied]}}</td>
           </template>
         </tr>
       </tbody>
@@ -49,7 +50,7 @@ export default {
       type: Array,
       required: true,
       validator (array) {
-        return !(array.filter(item.id === undefined).length>0)
+        return !(array.filter(item => item.id === undefined).length > 0)
       }
     },
     columns: {
@@ -112,8 +113,10 @@ export default {
       if(this.selectedItems.length === this.dataSource.length){
         // 全选的时候 半选状态取消
         this.$refs.allChecked.indeterminate = false
+        this.$refs.allChecked.checked = true
       }else if(this.selectedItems.length === 0){
         this.$refs.allChecked.indeterminate = false
+        this.$refs.allChecked.checked = false
       }else {
         this.$refs.allChecked.indeterminate = true
       }

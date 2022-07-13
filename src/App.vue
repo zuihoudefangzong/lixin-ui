@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div>{{selected}}</div>
+    <!-- <div>{{selected}}</div> -->
     <li-table
     :dataSource="dataSource"
     :columns="columns"
