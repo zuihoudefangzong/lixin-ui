@@ -2,15 +2,17 @@
   <div class="container">
     <!-- <div>{{selected}}</div> -->
     <li-table
-    :dataSource="dataSource"
-    :columns="columns"
-    bordered
-    striped
-    :selected-items.sync="selected"
-    :order-by.sync="orderBy"
-    @update:orderBy="updateDataSource"
+      :dataSource="dataSource"
+      :columns="columns"
+      bordered
+      striped
+      :selected-items.sync="selected"
+      :order-by.sync="orderBy"
+      @update:orderBy="updateDataSource"
+      :loading="loading"
     >
     </li-table>
+
     <li-table
     style="margin-top:20px;"
     :dataSource="dataSource"
@@ -47,14 +49,20 @@ export default {
       selected:[],
       orderBy: {
         score: true
-      }
+      },
+      loading: false
     }
   },
   methods: {
     updateDataSource() {
+      this.loading = true
       // 发送到后端mysql排序
       // this.dataSource = this.dataSource.sort((a,b)=> a.score-b.score)
+     setTimeout(() => {
+      
       this.dataSource = this.dataSource.sort((a,b)=> b.score-a.score)
+      this.loading = false
+     }, 3000);
     }
   }
 };

@@ -50,6 +50,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="loading" class="li-table-loading">
+      <li-icon name="loading"/>
+    </div>
   </div>
 </template>
 
@@ -99,6 +102,11 @@ export default {
     orderBy: {
       type: Object,
       default: () => ({}),
+    },
+    // loading
+    loading: {
+      type: Boolean,
+      default: false
     },
   },
   methods: {
@@ -245,6 +253,28 @@ $grey: darken($grey,10%);
   &-header {
     display: flex;
     align-items: center;
+  }
+
+  &-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  // loading css
+  &-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    svg {
+      width: 50px;
+      height: 50px;
+      @include spin;
+    }
   }
 }
 </style>
