@@ -20,7 +20,17 @@
           </th>
           <th v-if="numberVisible">#</th>
           <th v-for="column in columns" :key="column.field">
-            {{column.text}}
+            <div class="li-table-header">
+              {{column.text}}
+              <!-- 升序asc 降序desc icon -->
+              <span
+                class="li-table-sorter"
+                v-if="column.field in orderBy"
+                @click="changeOrderBy(column.field)">
+                <li-icon :class="{'active':orderBy[column.field] ==='asc'}" name="asc"  />
+                <li-icon :class="{'active':orderBy[column.field] ==='desc'}" name="desc"/>
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -35,7 +45,7 @@
           <td v-if="numberVisible">{{index+1}}</td>
           <!-- template不能放v-for的key -->
           <template v-for="column in columns">
-            <td :key="column.flied">{{item[column.flied]}}</td>
+            <td :key="column.flied">{{item[column.field]}}</td>
           </template>
         </tr>
       </tbody>
@@ -44,8 +54,10 @@
 </template>
 
 <script>
+import LiIcon from '../icon.vue'
 export default {
   name: 'LiTable',
+  components: {LiIcon},
   props: {
     dataSource:{
       type: Array,
@@ -78,10 +90,16 @@ export default {
       type: Boolean,
       default: false
     },
+    // 当前选中的
     selectedItems: {
       type: Array,
       default: () => []
-    }
+    },
+    // 表格排序
+    orderBy: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   methods: {
     // 单选
@@ -106,6 +124,21 @@ export default {
     // 当前是否要选中 取决于selectedItems
     inSelectedItems(item){// 因为引用数据类型 只能同过对象的key判断
       return this.selectedItems.filter( i=> i.id ===item.id).length > 0
+    },
+
+    // orderBy
+    changeOrderBy(key){
+      const copy = JSON.parse(JSON.stringify(this.orderBy))
+      let oldValue = copy[key]
+
+      if(oldValue === 'asc'){
+        copy[key] ='desc'
+      }else if(oldValue === 'desc'){
+        copy[key] = true
+      }else {
+        copy[key] = 'asc'
+      }
+      this.$emit('update:orderBy',copy)
     }
     
   },
@@ -143,7 +176,7 @@ export default {
 </script>
 
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import '~../../styles/_var.scss';
 $grey: darken($grey,10%);
 .li-table {
@@ -157,6 +190,7 @@ $grey: darken($grey,10%);
     padding: 8px;
   }
 
+  // table边框 
   &.bordered {
     border: 1px solid $grey;
     td, th {
@@ -164,12 +198,14 @@ $grey: darken($grey,10%);
     }
   }
 
+  // 数据紧凑 就是改变padding
   &.compact {
     td, th {
       padding: 4px;
     }
   }
 
+  // 斑马纹
   &.striped {
     tbody {
       > tr {
@@ -181,6 +217,34 @@ $grey: darken($grey,10%);
         }
       }
     }
+  }
+
+  &-sorter {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0 4px;
+    cursor: pointer;
+    svg {
+      width: 10px;
+      height: 10px;
+      fill: $grey;
+      &:first-child {
+        position: relative;
+        bottom: -1px;
+      }
+      &:nth-child(2){
+        position: relative;
+        top: -1px;
+      }
+      &.active {
+        fill: red;
+      }
+    }
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

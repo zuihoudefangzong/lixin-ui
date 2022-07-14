@@ -7,6 +7,8 @@
     bordered
     striped
     :selected-items.sync="selected"
+    :order-by.sync="orderBy"
+    @update:orderBy="updateDataSource"
     >
     </li-table>
     <li-table
@@ -35,17 +37,26 @@ export default {
         {id:3,name:'张三',score:99},
         {id:4,name:'李四',score:77},
         {id:5,name:'超人',score:66},
-        {id:6,name:'蝙蝠侠',score:70},
+        {id:6,name:'蝙蝠侠',score:777},
         {id:7,name:'汽车人',score:93},
       ],
       columns: [
-        {text:'姓名',flied:'name'},
-        {text:'分数',flied:'score'},
+        {text:'姓名',field:'name'},
+        {text:'分数',field:'score'},
       ],
-      selected: []
+      selected:[],
+      orderBy: {
+        score: true
+      }
     }
   },
-
+  methods: {
+    updateDataSource() {
+      // 发送到后端mysql排序
+      // this.dataSource = this.dataSource.sort((a,b)=> a.score-b.score)
+      this.dataSource = this.dataSource.sort((a,b)=> b.score-a.score)
+    }
+  }
 };
 </script>
 
