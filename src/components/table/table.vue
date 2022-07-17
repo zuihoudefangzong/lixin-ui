@@ -1,55 +1,62 @@
 <template>
-  <div class="li-table-wrapper">
-    <table
-      class="li-table"
-      :class="{
-        'bordered':bordered,
-        'compact':compact,
-        'striped':striped
-      }"
+  <div
+    class="li-table-wrapper"
+    
+    ref="wrapper"
+  >
+    <div :style="{'height':height,'overflow':'auto'}" ref="tableWrapper">
+      <table
+        class="li-table"
+        :class="{
+          'bordered':bordered,
+          'compact':compact,
+          'striped':striped
+        }"
+        ref="table"
       >
-      <thead>
-        <tr>
-          <th>
-            <!-- css属性半选indeterminate只能通过js操作 -->
-            <input
-              type="checkbox"
-              @change="onchangeAllItem"
-              ref="allChecked"
-              :checked="areAllItemsSelected">
-          </th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.field">
-            <div class="li-table-header">
-              {{column.text}}
-              <!-- 升序asc 降序desc icon -->
-              <span
-                class="li-table-sorter"
-                v-if="column.field in orderBy"
-                @click="changeOrderBy(column.field)">
-                <li-icon :class="{'active':orderBy[column.field] ==='asc'}" name="asc"  />
-                <li-icon :class="{'active':orderBy[column.field] ==='desc'}" name="desc"/>
-              </span>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item,index in dataSource" :key="item.id">
-          <td>
-            <input 
-              type="checkbox"
-              @change="onchangeItem(item,index,$event)"
-              :checked="inSelectedItems(item)">
-          </td>
-          <td v-if="numberVisible">{{index+1}}</td>
-          <!-- template不能放v-for的key -->
-          <template v-for="column in columns">
-            <td :key="column.flied">{{item[column.field]}}</td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
+        <thead>
+          <tr>
+            <th :style="{width: '50px'}">
+              <!-- css属性半选indeterminate只能通过js操作 -->
+              <input
+                type="checkbox"
+                @change="onchangeAllItem"
+                ref="allChecked"
+                :checked="areAllItemsSelected">
+            </th>
+            <th v-if="numberVisible" :style="{width: '50px'}">#</th>
+            <th v-for="column in columns" :key="column.field"  :style="{'width':column.width +'px',}">
+              <div class="li-table-header">
+                {{column.text}}
+                <!-- 升序asc 降序desc icon -->
+                <span
+                  class="li-table-sorter"
+                  v-if="column.field in orderBy"
+                  @click="changeOrderBy(column.field)">
+                  <li-icon :class="{'active':orderBy[column.field] ==='asc'}" name="asc"  />
+                  <li-icon :class="{'active':orderBy[column.field] ==='desc'}" name="desc"/>
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item,index in dataSource" :key="item.id">
+            <td :style="{width: '50px'}">
+              <input 
+                type="checkbox"
+                @change="onchangeItem(item,index,$event)"
+                :checked="inSelectedItems(item)">
+            </td>
+            <td v-if="numberVisible" :style="{width: '50px'}">{{index+1}}</td>
+            <!-- template不能放v-for的key -->
+            <template v-for="column in columns">
+              <td :key="column.flied" :style="{'width':column.width +'px',}">{{item[column.field]}}</td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div v-if="loading" class="li-table-loading">
       <li-icon name="loading"/>
     </div>
@@ -108,6 +115,12 @@ export default {
       type: Boolean,
       default: false
     },
+    // 固定height
+    height: {
+      type: [Number,String]
+    },
+    
+
   },
   methods: {
     // 单选
@@ -147,8 +160,8 @@ export default {
         copy[key] = 'asc'
       }
       this.$emit('update:orderBy',copy)
-    }
-    
+    },
+
   },
   watch: {
     selectedItems() {
@@ -179,6 +192,25 @@ export default {
       }
       return equal
     }
+  },
+  mounted() {
+    // 固定表头 实际是复制了一个table thead
+    // 只拷贝的table自身 所有后代都没有拷贝 浅拷贝
+    let table2 = this.$refs.table.cloneNode(false)
+    this.table2 = table2
+    table2.classList.add('li-table-copy')
+    let tHead = this.$refs.table.children[0]
+    let {height} = tHead.getBoundingClientRect()
+    // this.$refs.table.style.marginTop = height + 'px'
+    // 这里同时出现margin合并了
+    this.$refs.tableWrapper.style.marginTop = height + 'px'
+    this.$refs.tableWrapper.style.height = parseInt(this.height) - height + 'px'
+    console.log(this.$refs.tableWrapper.style.height)
+    table2.appendChild(tHead)
+    this.$refs.wrapper.appendChild(table2)
+  },
+  beforeDestroy() {
+    this.table2.remove()
   }
 }
 </script>
@@ -257,7 +289,9 @@ $grey: darken($grey,10%);
 
   &-wrapper {
     position: relative;
-    overflow: hidden;
+    // 触发bfc 
+    // overflow值不为默认的visible块元素
+    overflow: auto;
   }
   // loading css
   &-loading {
@@ -275,6 +309,15 @@ $grey: darken($grey,10%);
       height: 50px;
       @include spin;
     }
+  }
+
+  // copy table theader
+  &-copy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
   }
 }
 </style>

@@ -10,17 +10,18 @@
       :order-by.sync="orderBy"
       @update:orderBy="updateDataSource"
       :loading="loading"
+      height="400"
     >
     </li-table>
 
-    <li-table
+    <!-- <li-table
     style="margin-top:20px;"
     :dataSource="dataSource"
     :columns="columns"
     bordered
     compact
     >
-    </li-table>
+    </li-table> -->
   </div>
 </template>
 
@@ -41,10 +42,23 @@ export default {
         {id:5,name:'超人',score:66},
         {id:6,name:'蝙蝠侠',score:777},
         {id:7,name:'汽车人',score:93},
+        {id:8,name:'方方',score:100},
+        {id:9,name:'圆圆',score:88},
+        {id:10,name:'张三',score:99},
+        {id:11,name:'李四',score:77},
+        {id:12,name:'超人',score:66},
+        {id:13,name:'蝙蝠侠',score:777},
+        {id:14,name:'汽车人',score:93},
+        {id:15,name:'方方',score:100},
+        {id:16,name:'圆圆',score:88},
+        {id:17,name:'张三',score:99},
+        {id:18,name:'李四',score:77},
+        {id:19,name:'超人',score:66},
+        {id:20,name:'蝙蝠侠',score:777},
       ],
       columns: [
-        {text:'姓名',field:'name'},
-        {text:'分数',field:'score'},
+        {text:'姓名',field:'name',width:100},
+        {text:'分数',field:'score',},
       ],
       selected:[],
       orderBy: {
