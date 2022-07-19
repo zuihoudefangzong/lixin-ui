@@ -1,5 +1,5 @@
 <template>
-  <svg class="li-icon">
+  <svg class="li-icon" @click="$emit('click',$event)">
     <!-- 要改变svg的颜色 用css3的fill就可 -->
     <use :xlink:href="`#i-${name}`"></use>
   </svg>

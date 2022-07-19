@@ -11,17 +11,19 @@
       @update:orderBy="updateDataSource"
       :loading="loading"
       height="400"
+      expend-field="description"
+      checkable
     >
     </li-table>
 
-    <!-- <li-table
+    <li-table
     style="margin-top:20px;"
     :dataSource="dataSource"
     :columns="columns"
     bordered
     compact
     >
-    </li-table> -->
+    </li-table>
   </div>
 </template>
 
@@ -35,7 +37,7 @@ export default {
   data () {
     return {
       dataSource: [
-        {id:1,name:'方方',score:100},
+        {id:1,name:'方方',score:100,description:'你好方方'},
         {id:2,name:'圆圆',score:88},
         {id:3,name:'张三',score:99},
         {id:4,name:'李四',score:77},

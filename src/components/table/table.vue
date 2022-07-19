@@ -1,7 +1,6 @@
 <template>
   <div
     class="li-table-wrapper"
-    
     ref="wrapper"
   >
     <div :style="{'height':height,'overflow':'auto'}" ref="tableWrapper">
@@ -16,7 +15,8 @@
       >
         <thead>
           <tr>
-            <th :style="{width: '50px'}">
+            <th  v-if="expendField" :style="{width: '50px'}"></th>
+            <th v-if="checkable" :style="{width: '50px'}">
               <!-- css属性半选indeterminate只能通过js操作 -->
               <input
                 type="checkbox"
@@ -41,19 +41,37 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item,index in dataSource" :key="item.id">
-            <td :style="{width: '50px'}">
-              <input 
-                type="checkbox"
-                @change="onchangeItem(item,index,$event)"
-                :checked="inSelectedItems(item)">
-            </td>
-            <td v-if="numberVisible" :style="{width: '50px'}">{{index+1}}</td>
-            <!-- template不能放v-for的key -->
-            <template v-for="column in columns">
-              <td :key="column.flied" :style="{'width':column.width +'px',}">{{item[column.field]}}</td>
-            </template>
-          </tr>
+          <!-- template不能放v-for的key -->
+          <template v-for="item,index in dataSource">
+            <!-- 为什么tr外面用template 实现展开功能 -->
+            <tr :key="item.id">
+              <!-- 展开按钮 -->
+              <td v-if="expendField" :style="{width: '50px'}" class="li-table-center">
+                <li-icon class="li-table-expendIcon" name="right"
+                  @click="expendItem(item.id)"/>
+              </td>
+              <!-- 勾选 -->
+              <td v-if="checkable" :style="{width: '50px'}">
+                <input 
+                  type="checkbox"
+                  @change="onchangeItem(item,index,$event)"
+                  :checked="inSelectedItems(item)">
+              </td>
+              <td v-if="numberVisible" :style="{width: '50px'}">{{index+1}}</td>
+              <!-- 数据 -->
+              <template v-for="column in columns">
+                <td :key="column.flied" :style="{'width':column.width +'px',}">{{item[column.field]}}</td>
+              </template>
+            </tr>
+
+            <!-- 第2行展开显示的数据 -->
+            <tr :key="`${item.id}-expend`" v-if="inExpendItem(item.id)">
+              <!-- <td :style="{width: '50px'}"></td> -->
+              <td :colspan="columns.length + expendedCellColSpan">
+                {{item[expendField] || '空'}}
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -119,8 +137,19 @@ export default {
     height: {
       type: [Number,String]
     },
-    
-
+    // expendField可展开的key 对应dataSource里面的key
+    expendField: [String],
+    // 可选checkbox按钮
+    checkable: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      table2:undefined,
+      expendedIds: [],
+    }
   },
   methods: {
     // 单选
@@ -162,8 +191,25 @@ export default {
       this.$emit('update:orderBy',copy)
     },
 
+    // 是否显示展开信息 为什么不用计算属性 无法传参数
+    inExpendItem(id){
+      return this.expendedIds.indexOf(id) >= 0
+    },
+
+    // 点击展开按钮后
+    expendItem(id) {
+      if(this.inExpendItem(id)) {
+        // 触发了
+        this.expendedIds.splice(this.expendedIds.indexOf(id),1)
+      }else {
+        this.expendedIds.push(id)
+      }
+    },
+    
+
   },
   watch: {
+    // 半选的显示
     selectedItems() {
       if(this.selectedItems.length === this.dataSource.length){
         // 全选的时候 半选状态取消
@@ -191,6 +237,13 @@ export default {
         }
       }
       return equal
+    },
+    // 展开信息的跨列
+    expendedCellColSpan() {
+      let result = 0
+      if(this.checkable) {result +=1}
+      if(this.expendField) {result +=1}
+      return result
     }
   },
   mounted() {
@@ -205,7 +258,6 @@ export default {
     // 这里同时出现margin合并了
     this.$refs.tableWrapper.style.marginTop = height + 'px'
     this.$refs.tableWrapper.style.height = parseInt(this.height) - height + 'px'
-    console.log(this.$refs.tableWrapper.style.height)
     table2.appendChild(tHead)
     this.$refs.wrapper.appendChild(table2)
   },
@@ -319,5 +371,17 @@ $grey: darken($grey,10%);
     width: 100%;
     background: white;
   }
+
+  // 展开按钮
+  &-expendIcon{
+    width: 10px;
+    height: 10px;;
+  }
+  // 为什么要两个& & 优先级
+  // &代表li-table
+  // .li-table .li-table-center
+  & &-center {
+    text-align: center;
+  }   
 }
 </style>
