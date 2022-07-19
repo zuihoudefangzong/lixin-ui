@@ -14,6 +14,11 @@
       expend-field="description"
       checkable
     >
+      <!-- 默认插槽slot和作用域插槽slot-scope应用 -->
+      <template slot-scope="xxx">
+        <button @click="edit(xxx.item)">编辑</button>
+        <button @click="deleteItem(xxx.item)">删除</button>
+      </template>
     </li-table>
 
     <li-table
@@ -79,6 +84,12 @@ export default {
       this.dataSource = this.dataSource.sort((a,b)=> b.score-a.score)
       this.loading = false
      }, 3000);
+    },
+    edit(obj){
+      console.log(obj,'编辑')
+    },
+    deleteItem(obj) {
+      console.log(obj,'delete')
     }
   }
 };

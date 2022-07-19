@@ -38,6 +38,9 @@
                 </span>
               </div>
             </th>
+
+            <!-- 自定义节点 -->
+            <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +65,14 @@
               <template v-for="column in columns">
                 <td :key="column.flied" :style="{'width':column.width +'px',}">{{item[column.field]}}</td>
               </template>
+
+              <!-- 自定义节点默认插槽 -->
+              <td v-if="$scopedSlots.default">
+                <div ref="actions" style="display: inline-block;">
+                  <!-- 默认插槽和slot-scope作用域插槽应用  -->
+                  <slot :item="item"></slot>
+                </div>
+              </td>
             </tr>
 
             <!-- 第2行展开显示的数据 -->
@@ -260,6 +271,24 @@ export default {
     this.$refs.tableWrapper.style.height = parseInt(this.height) - height + 'px'
     table2.appendChild(tHead)
     this.$refs.wrapper.appendChild(table2)
+
+
+    // 计算作用域插槽wdith
+    if (this.$scopedSlots.default) {
+      let div = this.$refs.actions[0]
+      let {width} = div.getBoundingClientRect()
+      let parent = div.parentNode
+      let styles = getComputedStyle(parent)
+      let paddingLeft = styles.getPropertyValue('padding-left')
+      let paddingRight = styles.getPropertyValue('padding-right')
+      let borderLeft = styles.getPropertyValue('border-left-width')
+      let borderRight = styles.getPropertyValue('border-right-width')
+      let width2 = width + parseInt(paddingRight) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
+      this.$refs.actionsHeader.style.width = width2
+      this.$refs.actions.map(div => {
+        div.parentNode.style.width = width2
+      })
+    }
   },
   beforeDestroy() {
     this.table2.remove()
